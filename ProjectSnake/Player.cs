@@ -2,7 +2,7 @@
 {
     public class Player
     {
-        Snake snake;
+        public Snake snake;
         int score;
 
 

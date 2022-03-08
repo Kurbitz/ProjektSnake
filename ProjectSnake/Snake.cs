@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Drawing;
 
 namespace ProjectSnake
 {
-    internal class Snake : IDrawable, ICollidable
+    public class Snake : IDrawable, ICollidable
     {
         float Speed = 1.0f;
-        List<Point> segments = new List<Point>(1);
+        public List<Point> segments = new List<Point>(1);
         Color _color;
 
         public Snake(Point startingPosition, Color color)
