@@ -18,7 +18,7 @@ namespace ProjectSnake
 
         public void Run()
         {
-            //Application.EnableVisualStyles();
+            Application.EnableVisualStyles();
             //Application.SetCompatibleTextRenderingDefault(false);
             board.Width = 40;
             board.Height = 30;
