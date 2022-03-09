@@ -23,7 +23,7 @@ namespace ProjectSnake
         // Returns true if the snake's head is in the same position as the food
         public bool CheckCollision(Snake snake)
         {
-            return snake.segments[0] == position;
+            return snake.CheckCollision(position);
         }
     }
 }
