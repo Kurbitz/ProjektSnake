@@ -35,6 +35,7 @@ namespace ProjectSnake
         private void TimerEvent(object sender, EventArgs e)
         {
             _main.BackColor = System.Drawing.Color.Violet;
+            TryCollide();
         }
 
         double TileSize => _main.Width / board.Width;
@@ -47,6 +48,24 @@ namespace ProjectSnake
                 food.Draw(e.Graphics);
             }
             //throw new NotImplementedException();
+        }
+        
+        // Checks each collidable for collisions and runs collision method if true
+        private void TryCollide()
+        {
+            // Add all ICollidables (food and each player's snake) to the same list for easy iteration.
+            var collidables = new List<ICollidable>();
+            collidables.AddRange(foods);
+            collidables.AddRange(players.Select(player => player.snake));
+            
+            foreach (var player in players)
+            {
+                // If collidable collides
+                foreach (var collidable in collidables.Where(collidable => collidable.CheckCollision(player.snake)))
+                {
+                    collidable.OnCollision(player);
+                }
+            }
         }
     }
 }
