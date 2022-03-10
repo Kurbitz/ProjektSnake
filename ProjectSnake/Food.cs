@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+using System.Drawing;
 
 namespace ProjectSnake
 {
@@ -19,5 +19,11 @@ namespace ProjectSnake
 
         public abstract void Draw(Graphics graphic);
         public abstract void OnCollision(Player player);
+        
+        // Returns true if the snake's head is in the same position as the food
+        public bool CheckCollision(Snake snake)
+        {
+            return snake.CheckCollision(position);
+        }
     }
 }

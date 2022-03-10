@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,5 +9,7 @@ namespace ProjectSnake
     interface ICollidable
     {
         void OnCollision(Player player);
+
+        bool CheckCollision(Snake snake);
     }
 }

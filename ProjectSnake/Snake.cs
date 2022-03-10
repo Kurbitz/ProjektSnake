@@ -1,17 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 
 namespace ProjectSnake
 {
-    internal class Snake : IDrawable, ICollidable
+    public class Snake : IDrawable, ICollidable
     {
         float Speed = 1.0f;
-        List<Point> segments = new List<Point>(1);
+        private List<Point> _segments = new List<Point>(1);
         Color _color;
 
         public Snake(Point startingPosition, Color color)
         {
-            segments[0] = startingPosition;
+            _segments[0] = startingPosition;
             _color = color;
         }
 
@@ -34,5 +36,20 @@ namespace ProjectSnake
         {
             throw new System.NotImplementedException();
         }
+
+        // Returns true if a snake's head collides with another snake segment
+        public bool CheckCollision(Snake snake)
+        {
+            // Special case when checking collisions between a snake and itself to avoid colliding with it's own head
+            if (ReferenceEquals(this, snake))
+            {
+                return snake._segments.Skip(1).Any(segment => CheckCollision(segment));
+            }
+            // If colliding with another snake
+            return snake._segments.Any(segment => CheckCollision(segment));
+        }
+
+        // Returns true if a snake's head occupies a position
+        public bool CheckCollision(Point position) => _segments[0] == position;
     }
 }
