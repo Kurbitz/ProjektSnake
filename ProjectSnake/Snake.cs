@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 
@@ -7,9 +6,9 @@ namespace ProjectSnake
 {
     public class Snake : IDrawable, ICollidable
     {
-        float Speed = 1.0f;
+        private float Speed = 1.0f;
         private List<Point> _segments = new List<Point>(1);
-        Color _color;
+        private Color _color;
 
         public Snake(Point startingPosition, Color color)
         {
@@ -17,12 +16,12 @@ namespace ProjectSnake
             _color = color;
         }
 
-        void GrowHead(int sizeChange)
+        private void GrowHead(int sizeChange)
         {
             throw new System.NotImplementedException();
         }
 
-        void GrowTail(int sizeChange)
+        private void GrowTail(int sizeChange)
         {
             throw new System.NotImplementedException();
         }
@@ -45,6 +44,7 @@ namespace ProjectSnake
             {
                 return snake._segments.Skip(1).Any(segment => CheckCollision(segment));
             }
+
             // If colliding with another snake
             return snake._segments.Any(segment => CheckCollision(segment));
         }

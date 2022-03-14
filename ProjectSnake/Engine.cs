@@ -2,19 +2,17 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ProjectSnake
 {
-    class Engine
+    internal class Engine
     {
-        MainForm _main = new MainForm();
-        Timer _timer = new Timer();
-        List<Food> foods = new List<Food>();
-        Player[] players;
-        Board board;
+        private MainForm _main = new MainForm();
+        private Timer _timer = new Timer();
+        private List<Food> foods = new List<Food>();
+        private Player[] players;
+        private Board board;
 
         public void Run()
         {
@@ -38,18 +36,19 @@ namespace ProjectSnake
             TryCollide();
         }
 
-        double TileSize => _main.Width / board.Width;
+        private double TileSize => _main.Width / board.Width;
 
         private void Draw(Object obj, PaintEventArgs e)
         {
             foreach (var food in foods)
             {
-                e.Graphics.Clip = new Region(new Rectangle((int)(food.position.X * TileSize), (int)(food.position.Y * TileSize), (int)TileSize, (int)TileSize));
+                e.Graphics.Clip = new Region(new Rectangle((int)(food.position.X * TileSize),
+                    (int)(food.position.Y * TileSize), (int)TileSize, (int)TileSize));
                 food.Draw(e.Graphics);
             }
             //throw new NotImplementedException();
         }
-        
+
         // Checks each collidable for collisions and runs collision method if true
         private void TryCollide()
         {
@@ -57,7 +56,7 @@ namespace ProjectSnake
             var collidables = new List<ICollidable>();
             collidables.AddRange(foods);
             collidables.AddRange(players.Select(player => player.snake));
-            
+
             foreach (var player in players)
             {
                 // If collidable collides
