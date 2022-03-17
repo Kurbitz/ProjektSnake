@@ -2,7 +2,7 @@
 
 namespace ProjectSnake
 {
-    internal abstract class Food : ICollidable, IDrawable
+    public abstract class Food : ICollidable, IDrawable
     {
         public Point position
         {
