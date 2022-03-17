@@ -5,7 +5,7 @@ namespace ProjectSnake
 {
     internal class DietFood : Food
     {
-        public DietFood(Point pos, Color color) : base(pos, color)
+        public DietFood(Point pos) : base(pos, Color.Aqua)
         {
         }
 
