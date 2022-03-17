@@ -8,9 +8,10 @@ namespace ProjectSnake
     {
         private double aspectRatio = 0.75;
 
-        public MainForm()
+        public MainForm(int width = 800)
         {
             InitializeComponent();
+            ClientSize = new Size(width, (int)(width * aspectRatio));
         }
 
         private void MainForm_Resize(object sender, EventArgs e)
