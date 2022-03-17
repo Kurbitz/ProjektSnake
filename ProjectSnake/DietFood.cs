@@ -11,7 +11,7 @@ namespace ProjectSnake
 
         public override void Draw(IRenderer renderer)
         {
-            throw new NotImplementedException();
+            renderer.Draw(this);
         }
 
         public override void OnCollision(Player player)

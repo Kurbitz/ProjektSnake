@@ -28,7 +28,7 @@ namespace ProjectSnake
 
         public void Draw(IRenderer renderer)
         {
-            throw new System.NotImplementedException();
+            renderer.Draw(this);
         }
 
         public void OnCollision(Player player)
