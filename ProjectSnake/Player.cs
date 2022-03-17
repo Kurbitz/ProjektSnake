@@ -3,8 +3,6 @@
     public class Player
     {
         public Snake snake;
-        int score;
-
-
+        private int score;
     }
 }

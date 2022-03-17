@@ -1,0 +1,4 @@
+*.cs text
+.editorconfig text
+.gitattributes text
+.gitignore text
