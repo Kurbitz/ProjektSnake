@@ -10,12 +10,12 @@ namespace ProjectSnake
             private set;
         }
 
-        protected Color color;
+        public Color Color { get; }
 
         public Food(Point pos, Color color)
         {
             position = pos;
-            this.color = color;
+            Color = color;
         }
 
         public abstract void Draw(IRenderer graphic);
