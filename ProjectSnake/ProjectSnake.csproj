@@ -65,6 +65,7 @@
     <Compile Include="Snake.cs" />
     <Compile Include="StandardFood.cs" />
     <Compile Include="ValuableFood.cs" />
+    <Compile Include="WinFormsRenderer.cs" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
