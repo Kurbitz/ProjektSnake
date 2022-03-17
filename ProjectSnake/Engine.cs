@@ -40,8 +40,6 @@ namespace ProjectSnake
             _main.Refresh();
         }
 
-        private double TileSize => _main.Width / board.Width;
-
         private void Draw(Object obj, PaintEventArgs e)
         {
             _renderer.Clear();
