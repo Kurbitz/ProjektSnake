@@ -8,12 +8,12 @@ namespace ProjectSnake
     {
         private float Speed = 1.0f;
         private List<Point> _segments = new List<Point>(1);
-        private Color _color;
+        public Color Color { get; }
 
         public Snake(Point startingPosition, Color color)
         {
             _segments[0] = startingPosition;
-            _color = color;
+            Color = color;
         }
 
         private void GrowHead(int sizeChange)
