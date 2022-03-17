@@ -44,9 +44,12 @@ namespace ProjectSnake
         {
             _renderer.Clear();
 
-            foreach (var food in foods)
+            var drawables = new List<IDrawable>();
+            drawables.AddRange(foods);
+
+            foreach (var drawable in drawables)
             {
-                food.Draw(_renderer);
+                drawable.Draw(_renderer);
             }
 
             _renderer.Display((Control)obj, e.Graphics);
