@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -39,7 +38,18 @@ namespace ProjectSnake
         // Ritar ut all mat och alla ormar till fönstret som representeras av control och graphics.
         public void Display(Control control, Graphics graphics)
         {
-            throw new NotImplementedException();
+            var tileWidth = control.ClientSize.Width / _board.Width;
+            var tileHeight = control.ClientSize.Height / _board.Height;
+            var tileSize = new Size(tileWidth, tileHeight);
+
+            foreach (var food in _food)
+            {
+                var foodPixelPosition = new Point(food.position.X * tileSize.Width, food.position.Y * tileSize.Height);
+                var drawingArea = new Rectangle(foodPixelPosition, tileSize);
+                var brush = new SolidBrush(food.Color);
+
+                graphics.FillRectangle(brush, drawingArea);
+            }
         }
     }
 }
