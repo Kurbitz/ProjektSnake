@@ -50,6 +50,17 @@ namespace ProjectSnake
 
                 graphics.FillRectangle(brush, drawingArea);
             }
+
+            foreach (var snake in _snakes)
+            {
+                var brush = new SolidBrush(snake.Color);
+                foreach (var segment in snake)
+                {
+                    var segmentPixelPosition = new Point(segment.X * tileSize.Width, segment.Y * tileSize.Height);
+                    var drawingArea = new Rectangle(segmentPixelPosition, tileSize);
+                    graphics.FillRectangle(brush, drawingArea);
+                }
+            }
         }
     }
 }
