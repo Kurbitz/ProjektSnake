@@ -26,7 +26,7 @@ namespace ProjectSnake
             throw new System.NotImplementedException();
         }
 
-        public void Draw(Graphics graphic)
+        public void Draw(IRenderer renderer)
         {
             throw new System.NotImplementedException();
         }

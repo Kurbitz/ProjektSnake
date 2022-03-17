@@ -9,7 +9,7 @@ namespace ProjectSnake
         {
         }
 
-        public override void Draw(Graphics graphic)
+        public override void Draw(IRenderer renderer)
         {
             throw new NotImplementedException();
         }

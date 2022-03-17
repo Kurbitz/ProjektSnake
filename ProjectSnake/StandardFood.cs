@@ -9,9 +9,9 @@ namespace ProjectSnake
         {
         }
 
-        public override void Draw(Graphics graphic)
+        public override void Draw(IRenderer renderer)
         {
-            graphic.Clear(color);
+            renderer.Draw(this);
         }
 
         public override void OnCollision(Player player)

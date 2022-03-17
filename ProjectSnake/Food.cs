@@ -18,7 +18,7 @@ namespace ProjectSnake
             this.color = color;
         }
 
-        public abstract void Draw(Graphics graphic);
+        public abstract void Draw(IRenderer graphic);
         public abstract void OnCollision(Player player);
 
         // Returns true if the snake's head is in the same position as the food

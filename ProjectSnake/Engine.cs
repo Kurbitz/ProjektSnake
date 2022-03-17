@@ -9,6 +9,7 @@ namespace ProjectSnake
     internal class Engine
     {
         private MainForm _main = new MainForm();
+        private WinFormsRenderer _renderer;
         private Timer _timer = new Timer();
         private List<Food> foods = new List<Food>();
         private Player[] players;
@@ -22,6 +23,8 @@ namespace ProjectSnake
             board.Height = 30;
 
             foods.Add(new StandardFood(new Point(board.Width / 2, board.Height / 2)));
+
+            _renderer = new WinFormsRenderer();
 
             _main.Paint += Draw;
             _timer.Tick += TimerEvent;
@@ -42,9 +45,7 @@ namespace ProjectSnake
         {
             foreach (var food in foods)
             {
-                e.Graphics.Clip = new Region(new Rectangle((int)(food.position.X * TileSize),
-                    (int)(food.position.Y * TileSize), (int)TileSize, (int)TileSize));
-                food.Draw(e.Graphics);
+                food.Draw(_renderer);
             }
             //throw new NotImplementedException();
         }
