@@ -10,6 +10,16 @@ namespace ProjectSnake
         private List<Food> _food = new List<Food>();
         private List<Snake> _snakes = new List<Snake>();
 
+        private Board _board;
+
+        // Renderern måste veta hur stort brädet är för att kunna skala saker rätt.
+        // NOTE(Johan): Detta betyder också att om brädets storlek i framtiden ändras
+        // av någon anledning behöver renderern kunna få reda på det på något sätt.
+        public WinFormsRenderer(Board board)
+        {
+            _board = board;
+        }
+
         public void Clear()
         {
             _food.Clear();

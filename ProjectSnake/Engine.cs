@@ -24,7 +24,7 @@ namespace ProjectSnake
 
             foods.Add(new StandardFood(new Point(board.Width / 2, board.Height / 2)));
 
-            _renderer = new WinFormsRenderer();
+            _renderer = new WinFormsRenderer(board);
 
             _main.Paint += Draw;
             _timer.Tick += TimerEvent;
