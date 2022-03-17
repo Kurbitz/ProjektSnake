@@ -37,6 +37,7 @@ namespace ProjectSnake
         {
             _main.BackColor = System.Drawing.Color.Violet;
             TryCollide();
+            _main.Refresh();
         }
 
         private double TileSize => _main.Width / board.Width;
