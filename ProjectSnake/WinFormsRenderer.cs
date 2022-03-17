@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace ProjectSnake
 {
@@ -21,6 +24,12 @@ namespace ProjectSnake
         public void Draw(Snake snake)
         {
             _snakes.Add(snake);
+        }
+
+        // Ritar ut all mat och alla ormar till fönstret som representeras av control och graphics.
+        public void Display(Control control, Graphics graphics)
+        {
+            throw new NotImplementedException();
         }
     }
 }
