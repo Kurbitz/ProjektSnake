@@ -52,6 +52,7 @@
     <Compile Include="Food.cs" />
     <Compile Include="ICollidable.cs" />
     <Compile Include="IDrawable.cs" />
+    <Compile Include="IRenderer.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
