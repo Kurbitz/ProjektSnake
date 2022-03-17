@@ -13,7 +13,7 @@ namespace ProjectSnake
 
         public Snake(Point startingPosition, Color color)
         {
-            _segments[0] = startingPosition;
+            _segments.Add(startingPosition);
             Color = color;
         }
 
