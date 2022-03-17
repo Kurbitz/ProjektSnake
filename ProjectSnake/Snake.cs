@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+using System.Collections;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 
 namespace ProjectSnake
 {
-    public class Snake : IDrawable, ICollidable
+    public class Snake : IDrawable, ICollidable, IEnumerable<Point>
     {
         private float Speed = 1.0f;
         private List<Point> _segments = new List<Point>(1);
@@ -51,5 +52,15 @@ namespace ProjectSnake
 
         // Returns true if a snake's head occupies a position
         public bool CheckCollision(Point position) => _segments[0] == position;
+
+        public IEnumerator<Point> GetEnumerator()
+        {
+            return _segments.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
     }
 }
