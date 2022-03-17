@@ -43,11 +43,14 @@ namespace ProjectSnake
 
         private void Draw(Object obj, PaintEventArgs e)
         {
+            _renderer.Clear();
+
             foreach (var food in foods)
             {
                 food.Draw(_renderer);
             }
-            //throw new NotImplementedException();
+
+            _renderer.Display((Control)obj, e.Graphics);
         }
 
         // Checks each collidable for collisions and runs collision method if true
