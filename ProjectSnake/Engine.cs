@@ -46,7 +46,7 @@ namespace ProjectSnake
 
             var drawables = new List<IDrawable>();
             drawables.AddRange(foods);
-            drawables.AddRange(_players.Select(player => player.snake));
+            drawables.AddRange(_players.Select(player => player.Snake));
 
             foreach (var drawable in drawables)
             {
@@ -62,12 +62,12 @@ namespace ProjectSnake
             // Add all ICollidables (food and each player's snake) to the same list for easy iteration.
             var collidables = new List<ICollidable>();
             collidables.AddRange(foods);
-            collidables.AddRange(_players.Select(player => player.snake));
+            collidables.AddRange(_players.Select(player => player.Snake));
 
             foreach (var player in _players)
             {
                 // If collidable collides
-                foreach (var collidable in collidables.Where(collidable => collidable.CheckCollision(player.snake)))
+                foreach (var collidable in collidables.Where(collidable => collidable.CheckCollision(player.Snake)))
                 {
                     collidable.OnCollision(player);
                 }
