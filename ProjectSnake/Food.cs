@@ -2,7 +2,7 @@
 
 namespace ProjectSnake
 {
-    internal abstract class Food : ICollidable, IDrawable
+    public abstract class Food : ICollidable, IDrawable
     {
         public Point position
         {
@@ -10,15 +10,15 @@ namespace ProjectSnake
             private set;
         }
 
-        protected Color color;
+        public Color Color { get; }
 
         public Food(Point pos, Color color)
         {
             position = pos;
-            this.color = color;
+            Color = color;
         }
 
-        public abstract void Draw(Graphics graphic);
+        public abstract void Draw(IRenderer graphic);
         public abstract void OnCollision(Player player);
 
         // Returns true if the snake's head is in the same position as the food

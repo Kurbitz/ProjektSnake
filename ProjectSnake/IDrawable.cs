@@ -4,6 +4,6 @@ namespace ProjectSnake
 {
     internal interface IDrawable
     {
-        void Draw(Graphics graphic);
+        void Draw(IRenderer renderer);
     }
 }

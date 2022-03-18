@@ -9,6 +9,7 @@ namespace ProjectSnake
     internal class Engine
     {
         private MainForm _main = new MainForm();
+        private WinFormsRenderer _renderer;
         private Timer _timer = new Timer();
         private List<Food> foods = new List<Food>();
         private Player[] players;
@@ -23,6 +24,8 @@ namespace ProjectSnake
 
             foods.Add(new StandardFood(new Point(board.Width / 2, board.Height / 2)));
 
+            _renderer = new WinFormsRenderer(board);
+
             _main.Paint += Draw;
             _timer.Tick += TimerEvent;
             _timer.Interval = 1000 / 60;
@@ -34,19 +37,23 @@ namespace ProjectSnake
         {
             _main.BackColor = System.Drawing.Color.Violet;
             TryCollide();
+            _main.Refresh();
         }
-
-        private double TileSize => _main.Width / board.Width;
 
         private void Draw(Object obj, PaintEventArgs e)
         {
-            foreach (var food in foods)
+            _renderer.Clear();
+
+            var drawables = new List<IDrawable>();
+            drawables.AddRange(foods);
+            drawables.AddRange(players.Select(player => player.snake));
+
+            foreach (var drawable in drawables)
             {
-                e.Graphics.Clip = new Region(new Rectangle((int)(food.position.X * TileSize),
-                    (int)(food.position.Y * TileSize), (int)TileSize, (int)TileSize));
-                food.Draw(e.Graphics);
+                drawable.Draw(_renderer);
             }
-            //throw new NotImplementedException();
+
+            _renderer.Display((Control)obj, e.Graphics);
         }
 
         // Checks each collidable for collisions and runs collision method if true

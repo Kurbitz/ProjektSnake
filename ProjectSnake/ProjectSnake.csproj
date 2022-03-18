@@ -52,6 +52,7 @@
     <Compile Include="Food.cs" />
     <Compile Include="ICollidable.cs" />
     <Compile Include="IDrawable.cs" />
+    <Compile Include="IRenderer.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -64,6 +65,7 @@
     <Compile Include="Snake.cs" />
     <Compile Include="StandardFood.cs" />
     <Compile Include="ValuableFood.cs" />
+    <Compile Include="WinFormsRenderer.cs" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>

@@ -1,19 +1,20 @@
-﻿using System.Collections.Generic;
+using System.Collections;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 
 namespace ProjectSnake
 {
-    public class Snake : IDrawable, ICollidable
+    public class Snake : IDrawable, ICollidable, IEnumerable<Point>
     {
         private float Speed = 1.0f;
         private List<Point> _segments = new List<Point>(1);
-        private Color _color;
+        public Color Color { get; }
 
         public Snake(Point startingPosition, Color color)
         {
-            _segments[0] = startingPosition;
-            _color = color;
+            _segments.Add(startingPosition);
+            Color = color;
         }
 
         private void GrowHead(int sizeChange)
@@ -26,9 +27,9 @@ namespace ProjectSnake
             throw new System.NotImplementedException();
         }
 
-        public void Draw(Graphics graphic)
+        public void Draw(IRenderer renderer)
         {
-            throw new System.NotImplementedException();
+            renderer.Draw(this);
         }
 
         public void OnCollision(Player player)
@@ -51,5 +52,15 @@ namespace ProjectSnake
 
         // Returns true if a snake's head occupies a position
         public bool CheckCollision(Point position) => _segments[0] == position;
+
+        public IEnumerator<Point> GetEnumerator()
+        {
+            return _segments.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
     }
 }

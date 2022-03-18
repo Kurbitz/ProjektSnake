@@ -5,13 +5,13 @@ namespace ProjectSnake
 {
     internal class ValuableFood : Food
     {
-        public ValuableFood(Point pos, Color color) : base(pos, color)
+        public ValuableFood(Point pos) : base(pos, Color.Gold)
         {
         }
 
-        public override void Draw(Graphics graphic)
+        public override void Draw(IRenderer renderer)
         {
-            throw new NotImplementedException();
+            renderer.Draw(this);
         }
 
         public override void OnCollision(Player player)
