@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -26,11 +27,28 @@ namespace ProjectSnake
 
             _renderer = new WinFormsRenderer(board);
 
+            _players = InitializePlayers(2);
+
             _main.Paint += Draw;
             _timer.Tick += TimerEvent;
             _timer.Interval = 1000 / 60;
             _timer.Start();
             Application.Run(_main);
+        }
+
+        private Player[] InitializePlayers(int count)
+        {
+            Debug.Assert(count <= Player.SnakeBlueprints.Length);
+
+            var players = new Player[count];
+            for (var i = 0; i < players.Length; ++i)
+            {
+                var (relativePosition, color) = Player.SnakeBlueprints[i];
+                var absolutePosition = new PointF(relativePosition.X * board.Width, relativePosition.Y * board.Height);
+                players[i] = new Player(Point.Truncate(absolutePosition), color);
+            }
+
+            return players;
         }
 
         private void TimerEvent(object sender, EventArgs e)
