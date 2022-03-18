@@ -12,7 +12,7 @@ namespace ProjectSnake
         private WinFormsRenderer _renderer;
         private Timer _timer = new Timer();
         private List<Food> foods = new List<Food>();
-        private Player[] players;
+        private Player[] _players;
         private Board board;
 
         public void Run()
@@ -46,7 +46,7 @@ namespace ProjectSnake
 
             var drawables = new List<IDrawable>();
             drawables.AddRange(foods);
-            drawables.AddRange(players.Select(player => player.snake));
+            drawables.AddRange(_players.Select(player => player.snake));
 
             foreach (var drawable in drawables)
             {
@@ -62,9 +62,9 @@ namespace ProjectSnake
             // Add all ICollidables (food and each player's snake) to the same list for easy iteration.
             var collidables = new List<ICollidable>();
             collidables.AddRange(foods);
-            collidables.AddRange(players.Select(player => player.snake));
+            collidables.AddRange(_players.Select(player => player.snake));
 
-            foreach (var player in players)
+            foreach (var player in _players)
             {
                 // If collidable collides
                 foreach (var collidable in collidables.Where(collidable => collidable.CheckCollision(player.snake)))
