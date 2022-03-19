@@ -45,6 +45,15 @@ namespace ProjectSnake
             }
         }
 
+        private void MoveInFacingDirection()
+        {
+            var head = _segments.First();
+            var newHead = head + ToUnitStepSize(_facingDirection);
+            _segments.RotateOneStepRight();
+            _segments[0] = newHead;
+            _lastMoveDirection = _facingDirection;
+        }
+
         private void GrowHead(int sizeChange)
         {
             throw new System.NotImplementedException();
