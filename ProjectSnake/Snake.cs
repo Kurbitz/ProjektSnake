@@ -13,7 +13,13 @@ namespace ProjectSnake
             Up, Left, Down, Right
         }
 
-        private float Speed = 1.0f;
+        // _speed räknas i distance per step. Varje step ökar ormens distance baserat på _speed.
+        // När ormen har rört sig en längre distance än DistancePerMove så flyttar den på sig ett steg.
+        private const float InitialSpeed = 0.1f;
+        private const float DistancePerMove = 1.0f;
+        private float _speed = InitialSpeed;
+        private float _distanceTraveledSinceLastMove = 0.0f;
+
         private List<Point> _segments = new List<Point>(1);
         public Color Color { get; }
 
