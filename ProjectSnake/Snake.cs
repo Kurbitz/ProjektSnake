@@ -7,9 +7,17 @@ namespace ProjectSnake
 {
     public class Snake : IDrawable, ICollidable, IEnumerable<Point>
     {
+        public enum Direction
+        {
+            Up, Left, Down, Right
+        }
+
         private float Speed = 1.0f;
         private List<Point> _segments = new List<Point>(1);
         public Color Color { get; }
+
+        private Direction _facingDirection;
+        private Direction _lastMoveDirection;
 
         public Snake(Point startingPosition, Color color)
         {
