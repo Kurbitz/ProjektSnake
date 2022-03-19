@@ -51,6 +51,17 @@ namespace ProjectSnake
             }
         }
 
+        // Flyttar ormen om den har färdats tillräckligt långt.
+        public void Step()
+        {
+            _distanceTraveledSinceLastMove += _speed;
+            if (_distanceTraveledSinceLastMove > DistancePerMove)
+            {
+                _distanceTraveledSinceLastMove -= DistancePerMove;
+                MoveInFacingDirection();
+            }
+        }
+
         private void MoveInFacingDirection()
         {
             var head = _segments.First();
