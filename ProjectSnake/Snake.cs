@@ -1,4 +1,5 @@
 using System.Collections;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -23,6 +24,25 @@ namespace ProjectSnake
         {
             _segments.Add(startingPosition);
             Color = color;
+        }
+
+        // Ger tillbaka en storlek som pekar ett steg i directions riktning.
+        private Size ToUnitStepSize(Direction direction)
+        {
+            switch (direction)
+            {
+                case Direction.Up:
+                    return new Size(0, -1);
+                case Direction.Left:
+                    return new Size(-1, 0);
+                case Direction.Down:
+                    return new Size(0, 1);
+                case Direction.Right:
+                    return new Size(1, 0);
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(direction), direction,
+                        "Direction has a value that's not handled by the switch case.");
+            }
         }
 
         private void GrowHead(int sizeChange)
