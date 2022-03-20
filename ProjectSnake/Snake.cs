@@ -25,6 +25,13 @@ namespace ProjectSnake
 
         private Direction _facingDirection;
         private Direction _lastMoveDirection;
+        private int _amountToGrow;
+        private bool _canGrow;
+
+        // Assumes the Head is the last segment.
+        private Point Head => _segments.Last();
+
+        public bool IsAlive { get; private set; } = true;
 
         public Snake(Point startingPosition, Color color)
         {
@@ -54,6 +61,11 @@ namespace ProjectSnake
         // Flyttar ormen om den har färdats tillräckligt långt.
         public void Step()
         {
+            if (!IsAlive)
+            {
+                return;
+            }
+
             _distanceTraveledSinceLastMove += _speed;
             if (_distanceTraveledSinceLastMove > DistancePerMove)
             {
@@ -64,25 +76,62 @@ namespace ProjectSnake
 
         private void MoveInFacingDirection()
         {
-            var head = _segments.First();
-            var newHead = head + ToUnitStepSize(_facingDirection);
-            _segments.RotateOneStepRight();
-            _segments[0] = newHead;
+            var stepForward = ToUnitStepSize(_facingDirection);
+            var newHead = Head + stepForward;
+            if (_amountToGrow > 0)
+            {
+                _segments.Add(newHead);
+                --_amountToGrow;
+            }
+            else
+            {
+                _segments.RotateOneStepLeft();
+                _segments[_segments.Count - 1] = newHead;
+            }
+
+            _canGrow = true;
             _lastMoveDirection = _facingDirection;
         }
 
-        private void GrowHead(int sizeChange)
+        public void Grow(int sizeChange)
         {
-            throw new System.NotImplementedException();
+            if (!IsAlive)
+            {
+                return;
+            }
+
+            if (sizeChange < 0)
+            {
+                Shrink(-sizeChange);
+            }
+            else if (_canGrow)
+            {
+                _amountToGrow += sizeChange;
+                _canGrow = false;
+            }
         }
 
-        private void GrowTail(int sizeChange)
+        private void Shrink(int amount)
         {
-            throw new System.NotImplementedException();
+            if (amount >= _segments.Count)
+            {
+                IsAlive = false;
+                _segments.Clear();
+            }
+            else
+            {
+                // Assumes the head is at the last index.
+                _segments.RemoveRange(0, amount);
+            }
         }
 
         public void Draw(IRenderer renderer)
         {
+            if (!IsAlive)
+            {
+                return;
+            }
+
             renderer.Draw(this);
         }
 
@@ -94,10 +143,16 @@ namespace ProjectSnake
         // Returns true if a snake's head collides with another snake segment
         public bool CheckCollision(Snake snake)
         {
+            // Om ormen är död så slutar den existera.
+            if (!IsAlive)
+            {
+                return false;
+            }
+
             // Special case when checking collisions between a snake and itself to avoid colliding with it's own head
             if (ReferenceEquals(this, snake))
             {
-                return snake._segments.Skip(1).Any(segment => CheckCollision(segment));
+                return snake._segments.Where(segment => segment != Head).Any(segment => CheckCollision(segment));
             }
 
             // If colliding with another snake
@@ -105,7 +160,15 @@ namespace ProjectSnake
         }
 
         // Returns true if a snake's head occupies a position
-        public bool CheckCollision(Point position) => _segments[0] == position;
+        public bool CheckCollision(Point position)
+        {
+            if (!IsAlive)
+            {
+                return false;
+            }
+
+            return Head == position;
+        }
 
         public IEnumerator<Point> GetEnumerator()
         {
