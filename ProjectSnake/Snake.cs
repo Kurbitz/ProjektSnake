@@ -26,6 +26,9 @@ namespace ProjectSnake
         private Direction _facingDirection;
         private Direction _lastMoveDirection;
 
+        // Assumes the Head is the last segment.
+        private Point Head => _segments.Last();
+
         public bool IsAlive { get; private set; } = true;
 
         public Snake(Point startingPosition, Color color)
@@ -108,7 +111,7 @@ namespace ProjectSnake
             // Special case when checking collisions between a snake and itself to avoid colliding with it's own head
             if (ReferenceEquals(this, snake))
             {
-                return snake._segments.Skip(1).Any(segment => CheckCollision(segment));
+                return snake._segments.Where(segment => segment != Head).Any(segment => CheckCollision(segment));
             }
 
             // If colliding with another snake
@@ -116,7 +119,7 @@ namespace ProjectSnake
         }
 
         // Returns true if a snake's head occupies a position
-        public bool CheckCollision(Point position) => _segments[0] == position;
+        public bool CheckCollision(Point position) => Head == position;
 
         public IEnumerator<Point> GetEnumerator()
         {
