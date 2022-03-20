@@ -38,11 +38,17 @@ namespace ProjectSnake
                 _main.Controls.Add(label);
             }
 
+            _main.KeyDown += MainOnKeyDown;
             _main.Paint += Draw;
             _timer.Tick += TimerEvent;
             _timer.Interval = 1000 / 60;
             _timer.Start();
             Application.Run(_main);
+        }
+
+        private void MainOnKeyDown(object sender, KeyEventArgs e)
+        {
+            var key = e.KeyCode;
         }
 
         private ScoreLabel[] InitializeScoreLabels(Player[] players)
