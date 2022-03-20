@@ -74,6 +74,27 @@ namespace ProjectSnake
             }
         }
 
+        public void Move(Direction direction)
+        {
+            switch (direction)
+            {
+                case Direction.Down:
+                case Direction.Up:
+                    if (_lastMoveDirection == Direction.Left || _lastMoveDirection == Direction.Right)
+                    {
+                        _facingDirection = direction;
+                    }
+                    break;
+                case Direction.Left:
+                case Direction.Right:
+                    if (_lastMoveDirection == Direction.Up || _lastMoveDirection == Direction.Down)
+                    {
+                        _facingDirection = direction;
+                    }
+                    break;
+            }
+        }
+
         private void MoveInFacingDirection()
         {
             var stepForward = ToUnitStepSize(_facingDirection);
