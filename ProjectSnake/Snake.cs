@@ -31,7 +31,7 @@ namespace ProjectSnake
         // Assumes the Head is the last segment.
         private Point Head => _segments.Last();
 
-        public bool IsAlive { get; private set; } = true;
+        public bool IsAlive { get; set; } = true;
 
         public Snake(Point startingPosition, Color color)
         {
@@ -125,9 +125,8 @@ namespace ProjectSnake
             }
         }
 
-        public void Die()
+        public void Clear()
         {
-            IsAlive = false;
             _segments.Clear();
         }
 

@@ -126,7 +126,7 @@ namespace ProjectSnake
                 // Om Out of Bounds
                 if (player.CheckCollision(board))
                 {
-                    player.Snake.Die();
+                    player.Snake.IsAlive = false;
                 }
 
                 // Om en player krockar med något som går att krocka med
@@ -137,6 +137,13 @@ namespace ProjectSnake
             }
 
             foods.RemoveAll(food => !food.IsActive);
+            foreach (var snake in _players.Select(player => player.Snake))
+            {
+                if (!snake.IsAlive)
+                {
+                    snake.Clear();
+                }
+            }
         }
 
         private void GameOver()
