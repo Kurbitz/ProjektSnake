@@ -6,13 +6,10 @@ using System.Linq;
 
 namespace ProjectSnake
 {
+    public enum Direction { Up, Down, Right, Left }
+
     public class Snake : IEnumerable<Point>
     {
-        public enum Direction
-        {
-            Up, Left, Down, Right
-        }
-
         // _speed räknas i distance per step. Varje step ökar ormens distance baserat på _speed.
         // När ormen har rört sig en längre distance än DistancePerMove så flyttar den på sig ett steg.
         private const float InitialSpeed = 0.1f;
@@ -84,6 +81,7 @@ namespace ProjectSnake
                     {
                         _facingDirection = direction;
                     }
+
                     break;
                 case Direction.Left:
                 case Direction.Right:
@@ -91,6 +89,7 @@ namespace ProjectSnake
                     {
                         _facingDirection = direction;
                     }
+
                     break;
             }
         }
@@ -187,6 +186,7 @@ namespace ProjectSnake
             {
                 return false;
             }
+
             return Head.X < 0 || Head.Y < 0 || Head.X >= board.Width || Head.Y >= board.Height;
         }
 

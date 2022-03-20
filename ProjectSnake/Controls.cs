@@ -6,12 +6,8 @@ using System.Threading.Tasks;
 
 namespace ProjectSnake
 {
-   
     class Controls
     {
-        enum Directions { Up, Down, Right, Left }
-        Directions currentDirections = Directions.Right;
+        Direction currentDirections = Direction.Right;
     }
-     
-
 }
