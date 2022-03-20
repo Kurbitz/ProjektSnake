@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace ProjectSnake
 {
-    public class Snake : IDrawable, IEnumerable<Point>
+    public class Snake : IEnumerable<Point>
     {
         public enum Direction
         {
@@ -123,16 +123,6 @@ namespace ProjectSnake
                 // Assumes the head is at the last index.
                 _segments.RemoveRange(0, amount);
             }
-        }
-
-        public void Draw(IRenderer renderer)
-        {
-            if (!IsAlive)
-            {
-                return;
-            }
-
-            renderer.Draw(this);
         }
 
         public void Die()

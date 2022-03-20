@@ -93,7 +93,7 @@ namespace ProjectSnake
 
             var drawables = new List<IDrawable>();
             drawables.AddRange(foods);
-            drawables.AddRange(_players.Select(player => player.Snake));
+            drawables.AddRange(_players);
 
             foreach (var drawable in drawables)
             {

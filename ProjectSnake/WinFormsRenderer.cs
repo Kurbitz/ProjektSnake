@@ -7,7 +7,6 @@ namespace ProjectSnake
     public class WinFormsRenderer : IRenderer
     {
         private List<Food> _food = new List<Food>();
-        private List<Snake> _snakes = new List<Snake>();
         private List<Player> _players = new List<Player>();
 
         private Board _board;
@@ -23,7 +22,6 @@ namespace ProjectSnake
         public void Clear()
         {
             _food.Clear();
-            _snakes.Clear();
             _players.Clear();
         }
 
@@ -32,13 +30,8 @@ namespace ProjectSnake
             _food.Add(food);
         }
 
-        public void Draw(Snake snake)
-        {
-            _snakes.Add(snake);
-        }
-
         public void Draw(Player player)
-         {
+        {
             _players.Add(player);
         }
 
@@ -58,10 +51,10 @@ namespace ProjectSnake
                 graphics.FillRectangle(brush, drawingArea);
             }
 
-            foreach (var snake in _snakes)
+            foreach (var player in _players)
             {
-                var brush = new SolidBrush(snake.Color);
-                foreach (var segment in snake)
+                var brush = new SolidBrush(player.Snake.Color);
+                foreach (var segment in player.Snake)
                 {
                     var segmentPixelPosition = new Point(segment.X * tileSize.Width, segment.Y * tileSize.Height);
                     var drawingArea = new Rectangle(segmentPixelPosition, tileSize);
