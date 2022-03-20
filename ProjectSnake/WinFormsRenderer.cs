@@ -8,6 +8,7 @@ namespace ProjectSnake
     {
         private List<Food> _food = new List<Food>();
         private List<Snake> _snakes = new List<Snake>();
+        private List<Player> _players = new List<Player>();
 
         private Board _board;
 
@@ -23,6 +24,7 @@ namespace ProjectSnake
         {
             _food.Clear();
             _snakes.Clear();
+            _players.Clear();
         }
 
         public void Draw(Food food)
@@ -33,6 +35,11 @@ namespace ProjectSnake
         public void Draw(Snake snake)
         {
             _snakes.Add(snake);
+        }
+
+        public void Draw(Player player)
+         {
+            _players.Add(player);
         }
 
         // Ritar ut all mat och alla ormar till fönstret som representeras av control och graphics.

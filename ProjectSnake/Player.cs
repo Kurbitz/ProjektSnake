@@ -2,7 +2,7 @@
 
 namespace ProjectSnake
 {
-    public class Player : ICollidable
+    public class Player : ICollidable, IDrawable
     {
         public Snake Snake { get; }
         private int _score;
@@ -38,6 +38,11 @@ namespace ProjectSnake
         public bool CheckCollision(Board board)
         {
             return Snake.CheckCollision(board);
+        }
+
+        public void Draw(IRenderer renderer)
+        {
+            renderer.Draw(this);
         }
     }
 }
