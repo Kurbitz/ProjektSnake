@@ -25,6 +25,7 @@ namespace ProjectSnake
 
         private Direction _facingDirection;
         private Direction _lastMoveDirection;
+        private int _amountToGrow;
 
         // Assumes the Head is the last segment.
         private Point Head => _segments.Last();
@@ -76,9 +77,16 @@ namespace ProjectSnake
             _lastMoveDirection = _facingDirection;
         }
 
-        private void GrowHead(int sizeChange)
+        private void Grow(int sizeChange)
         {
-            throw new System.NotImplementedException();
+            if (sizeChange < 0)
+            {
+                Shrink(-sizeChange);
+            }
+            else
+            {
+                _amountToGrow += sizeChange;
+            }
         }
 
         private void Shrink(int amount)
