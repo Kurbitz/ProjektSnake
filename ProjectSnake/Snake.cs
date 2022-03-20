@@ -177,7 +177,7 @@ namespace ProjectSnake
             {
                 return false;
             }
-            return Head.X < 0 || Head.Y < 0 || Head.X > board.Width || Head.Y > board.Height;
+            return Head.X < 0 || Head.Y < 0 || Head.X >= board.Width || Head.Y >= board.Height;
         }
 
         public IEnumerator<Point> GetEnumerator()
