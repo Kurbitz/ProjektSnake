@@ -13,10 +13,5 @@ namespace ProjectSnake
         {
             renderer.Draw(this);
         }
-
-        public override void OnCollision(Player player)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

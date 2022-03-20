@@ -25,7 +25,11 @@ namespace ProjectSnake
         }
 
         public abstract void Draw(IRenderer graphic);
-        public abstract void OnCollision(Player player);
+
+        public void OnCollision(Player player)
+        {
+            player.OnCollision(this);
+        }
 
         // Returns true if the snake's head is in the same position as the food
         public bool CheckCollision(Snake snake)

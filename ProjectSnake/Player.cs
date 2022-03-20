@@ -5,7 +5,7 @@ namespace ProjectSnake
     public class Player
     {
         public Snake Snake { get; }
-        private int score;
+        private int _score;
 
         public static (PointF Position, Color Color)[] SnakeBlueprints { get; } =
         {
@@ -16,6 +16,12 @@ namespace ProjectSnake
         public Player(Point snakeStartingPos, Color snakeColor)
         {
             Snake = new Snake(snakeStartingPos, snakeColor);
+        }
+
+        public void OnCollision(Food food)
+        {
+            _score += food.Points;
+            Snake.Grow(food.LengthFactor);
         }
     }
 }
