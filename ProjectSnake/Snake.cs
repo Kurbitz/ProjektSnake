@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace ProjectSnake
 {
-    public class Snake : IDrawable, ICollidable, IEnumerable<Point>
+    public class Snake : IDrawable, IEnumerable<Point>
     {
         public enum Direction
         {
@@ -135,9 +135,10 @@ namespace ProjectSnake
             renderer.Draw(this);
         }
 
-        public void OnCollision(Player player)
+        public void Die()
         {
-            throw new System.NotImplementedException();
+            IsAlive = false;
+            _segments.Clear();
         }
 
         // Returns true if a snake's head collides with another snake segment
@@ -168,6 +169,15 @@ namespace ProjectSnake
             }
 
             return Head == position;
+        }
+
+        public bool CheckCollision(Board board)
+        {
+            if (!IsAlive)
+            {
+                return false;
+            }
+            return Head.X < 0 || Head.Y < 0 || Head.X >= board.Width || Head.Y >= board.Height;
         }
 
         public IEnumerator<Point> GetEnumerator()

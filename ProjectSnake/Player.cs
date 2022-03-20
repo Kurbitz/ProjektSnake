@@ -2,10 +2,10 @@
 
 namespace ProjectSnake
 {
-    public class Player
+    public class Player : ICollidable
     {
         public Snake Snake { get; }
-        private int score;
+        private int _score;
 
         public static (PointF Position, Color Color)[] SnakeBlueprints { get; } =
         {
@@ -16,6 +16,28 @@ namespace ProjectSnake
         public Player(Point snakeStartingPos, Color snakeColor)
         {
             Snake = new Snake(snakeStartingPos, snakeColor);
+        }
+
+        public void OnCollision(Food food)
+        {
+            _score += food.Points;
+            Snake.Grow(food.LengthFactor);
+        }
+
+        public void OnCollision(Player player)
+        {
+            Snake.Die();
+            player._score += 5;
+        }
+
+        public bool CheckCollision(Snake snake)
+        {
+            return Snake.CheckCollision(snake);
+        }
+
+        public bool CheckCollision(Board board)
+        {
+            return Snake.CheckCollision(board);
         }
     }
 }

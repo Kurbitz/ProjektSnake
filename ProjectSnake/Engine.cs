@@ -87,16 +87,34 @@ namespace ProjectSnake
             // Add all ICollidables (food and each player's snake) to the same list for easy iteration.
             var collidables = new List<ICollidable>();
             collidables.AddRange(foods);
-            collidables.AddRange(_players.Select(player => player.Snake));
+            collidables.AddRange(_players);
 
+            if (_players.All(player => !player.Snake.IsAlive))
+            {
+                GameOver();
+            }
+            
             foreach (var player in _players)
             {
-                // If collidable collides
+                // Om Out of Bounds
+                if (player.CheckCollision(board))
+                {
+                    player.Snake.Die();
+                }
+
+                // Om en player krockar med något som går att krocka med
                 foreach (var collidable in collidables.Where(collidable => collidable.CheckCollision(player.Snake)))
                 {
                     collidable.OnCollision(player);
                 }
             }
+
+            foods.RemoveAll(food => !food.IsActive);
+        }
+
+        private void GameOver()
+        {
+            throw new NotImplementedException();
         }
     }
 }
