@@ -26,6 +26,8 @@ namespace ProjectSnake
         private Direction _facingDirection;
         private Direction _lastMoveDirection;
 
+        public bool IsAlive { get; private set; } = true;
+
         public Snake(Point startingPosition, Color color)
         {
             _segments.Add(startingPosition);
@@ -80,6 +82,7 @@ namespace ProjectSnake
         {
             if (amount >= _segments.Count)
             {
+                IsAlive = false;
                 _segments.Clear();
             }
             else
