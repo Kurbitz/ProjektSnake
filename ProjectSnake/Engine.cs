@@ -97,6 +97,8 @@ namespace ProjectSnake
                     collidable.OnCollision(player);
                 }
             }
+
+            foods.RemoveAll(food => !food.IsActive);
         }
     }
 }

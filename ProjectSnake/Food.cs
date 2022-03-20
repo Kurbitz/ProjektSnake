@@ -7,6 +7,8 @@ namespace ProjectSnake
         public int Points { get; }
         
         public int LengthFactor { get; }
+
+        public bool IsActive { get; private set; } = true;
         
         public Point position
         {
@@ -29,6 +31,7 @@ namespace ProjectSnake
         public void OnCollision(Player player)
         {
             player.OnCollision(this);
+            IsActive = false;
         }
 
         // Returns true if the snake's head is in the same position as the food
