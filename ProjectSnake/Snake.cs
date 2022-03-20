@@ -70,10 +70,18 @@ namespace ProjectSnake
 
         private void MoveInFacingDirection()
         {
-            var head = _segments.First();
-            var newHead = head + ToUnitStepSize(_facingDirection);
-            _segments.RotateOneStepRight();
-            _segments[0] = newHead;
+            var stepForward = ToUnitStepSize(_facingDirection);
+            var newHead = Head + stepForward;
+            if (_amountToGrow > 0)
+            {
+                _segments.Add(newHead);
+                --_amountToGrow;
+            }
+            else
+            {
+                _segments.RotateOneStepLeft();
+                _segments[_segments.Count - 1] = newHead;
+            }
             _lastMoveDirection = _facingDirection;
         }
 
