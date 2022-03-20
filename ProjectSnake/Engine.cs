@@ -36,6 +36,19 @@ namespace ProjectSnake
             Application.Run(_main);
         }
 
+        private ScoreLabel[] InitializeScoreLabels(Player[] players)
+        {
+            var labels = new ScoreLabel[players.Length];
+            for (var i = 0; i < labels.Length; ++i)
+            {
+                var label = new ScoreLabel(players[i]);
+                label.Location = new Point(0, i * label.Height);
+                labels[i] = label;
+            }
+
+            return labels;
+        }
+
         private Player[] InitializePlayers(int count)
         {
             Debug.Assert(count <= Player.SnakeBlueprints.Length);
