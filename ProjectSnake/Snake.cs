@@ -26,6 +26,7 @@ namespace ProjectSnake
         private Direction _facingDirection;
         private Direction _lastMoveDirection;
         private int _amountToGrow;
+        private bool _canGrow;
 
         // Assumes the Head is the last segment.
         private Point Head => _segments.Last();
@@ -82,6 +83,8 @@ namespace ProjectSnake
                 _segments.RotateOneStepLeft();
                 _segments[_segments.Count - 1] = newHead;
             }
+
+            _canGrow = true;
             _lastMoveDirection = _facingDirection;
         }
 
@@ -91,9 +94,10 @@ namespace ProjectSnake
             {
                 Shrink(-sizeChange);
             }
-            else
+            else if (_canGrow)
             {
                 _amountToGrow += sizeChange;
+                _canGrow = false;
             }
         }
 
