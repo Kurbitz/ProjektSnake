@@ -135,9 +135,10 @@ namespace ProjectSnake
             renderer.Draw(this);
         }
 
-        public void OnCollision(Player player)
+        public void Die()
         {
-            throw new System.NotImplementedException();
+            IsAlive = false;
+            _segments.Clear();
         }
 
         // Returns true if a snake's head collides with another snake segment
