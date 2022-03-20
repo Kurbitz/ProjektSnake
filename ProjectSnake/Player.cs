@@ -5,7 +5,7 @@ namespace ProjectSnake
     public class Player : ICollidable, IDrawable
     {
         public Snake Snake { get; }
-        private int _score;
+        public int Score;
 
         public static (PointF Position, Color Color)[] SnakeBlueprints { get; } =
         {
@@ -20,14 +20,14 @@ namespace ProjectSnake
 
         public void OnCollision(Food food)
         {
-            _score += food.Points;
+            Score += food.Points;
             Snake.Grow(food.LengthFactor);
         }
 
         public void OnCollision(Player player)
         {
             Snake.Die();
-            player._score += 5;
+            player.Score += 5;
         }
 
         public bool CheckCollision(Snake snake)
