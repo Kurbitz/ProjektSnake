@@ -91,7 +91,13 @@ namespace ProjectSnake
 
             foreach (var player in _players)
             {
-                // If collidable collides
+                // Om Out of Bounds
+                if (player.CheckCollision(board))
+                {
+                    player.Snake.Die();
+                }
+
+                // Om en player krockar med något som går att krocka med
                 foreach (var collidable in collidables.Where(collidable => collidable.CheckCollision(player.Snake)))
                 {
                     collidable.OnCollision(player);
