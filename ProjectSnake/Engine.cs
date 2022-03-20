@@ -16,6 +16,8 @@ namespace ProjectSnake
         private Player[] _players;
         private Board board;
 
+        private ScoreLabel[] _scoreLabels;
+
         public void Run()
         {
             Application.EnableVisualStyles();
@@ -27,13 +29,33 @@ namespace ProjectSnake
 
             _renderer = new WinFormsRenderer(board);
 
-            _players = InitializePlayers(2);
+            var playerCount = 2;
+            _players = InitializePlayers(playerCount);
+            _scoreLabels = InitializeScoreLabels(_players);
+
+            foreach (var label in _scoreLabels)
+            {
+                _main.Controls.Add(label);
+            }
 
             _main.Paint += Draw;
             _timer.Tick += TimerEvent;
             _timer.Interval = 1000 / 60;
             _timer.Start();
             Application.Run(_main);
+        }
+
+        private ScoreLabel[] InitializeScoreLabels(Player[] players)
+        {
+            var labels = new ScoreLabel[players.Length];
+            for (var i = 0; i < labels.Length; ++i)
+            {
+                var label = new ScoreLabel(players[i]);
+                label.Location = new Point(0, i * label.Height);
+                labels[i] = label;
+            }
+
+            return labels;
         }
 
         private Player[] InitializePlayers(int count)
@@ -71,11 +93,16 @@ namespace ProjectSnake
 
             var drawables = new List<IDrawable>();
             drawables.AddRange(foods);
-            drawables.AddRange(_players.Select(player => player.Snake));
+            drawables.AddRange(_players);
 
             foreach (var drawable in drawables)
             {
                 drawable.Draw(_renderer);
+            }
+
+            foreach (var label in _scoreLabels)
+            {
+                _renderer.Draw(label);
             }
 
             _renderer.Display((Control)obj, e.Graphics);
