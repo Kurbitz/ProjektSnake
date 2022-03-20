@@ -76,9 +76,17 @@ namespace ProjectSnake
             throw new System.NotImplementedException();
         }
 
-        private void GrowTail(int sizeChange)
+        private void Shrink(int amount)
         {
-            throw new System.NotImplementedException();
+            if (amount >= _segments.Count)
+            {
+                _segments.Clear();
+            }
+            else
+            {
+                // Assumes the head is at the last index.
+                _segments.RemoveRange(0, amount);
+            }
         }
 
         public void Draw(IRenderer renderer)
