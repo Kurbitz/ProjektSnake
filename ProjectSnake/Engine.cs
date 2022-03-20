@@ -89,6 +89,11 @@ namespace ProjectSnake
             collidables.AddRange(foods);
             collidables.AddRange(_players);
 
+            if (_players.All(player => !player.Snake.IsAlive))
+            {
+                GameOver();
+            }
+            
             foreach (var player in _players)
             {
                 // Om Out of Bounds
@@ -105,6 +110,11 @@ namespace ProjectSnake
             }
 
             foods.RemoveAll(food => !food.IsActive);
+        }
+
+        private void GameOver()
+        {
+            throw new NotImplementedException();
         }
     }
 }
