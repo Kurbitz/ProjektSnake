@@ -16,6 +16,8 @@ namespace ProjectSnake
         private Player[] _players;
         private Board board;
 
+        private ScoreLabel[] _scoreLabels;
+
         public void Run()
         {
             Application.EnableVisualStyles();
@@ -27,7 +29,14 @@ namespace ProjectSnake
 
             _renderer = new WinFormsRenderer(board);
 
-            _players = InitializePlayers(2);
+            var playerCount = 2;
+            _players = InitializePlayers(playerCount);
+            _scoreLabels = InitializeScoreLabels(_players);
+
+            foreach (var label in _scoreLabels)
+            {
+                _main.Controls.Add(label);
+            }
 
             _main.Paint += Draw;
             _timer.Tick += TimerEvent;
