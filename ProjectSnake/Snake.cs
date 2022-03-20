@@ -1,4 +1,5 @@
 using System.Collections;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -7,14 +8,67 @@ namespace ProjectSnake
 {
     public class Snake : IDrawable, ICollidable, IEnumerable<Point>
     {
-        private float Speed = 1.0f;
+        public enum Direction
+        {
+            Up, Left, Down, Right
+        }
+
+        // _speed räknas i distance per step. Varje step ökar ormens distance baserat på _speed.
+        // När ormen har rört sig en längre distance än DistancePerMove så flyttar den på sig ett steg.
+        private const float InitialSpeed = 0.1f;
+        private const float DistancePerMove = 1.0f;
+        private float _speed = InitialSpeed;
+        private float _distanceTraveledSinceLastMove = 0.0f;
+
         private List<Point> _segments = new List<Point>(1);
         public Color Color { get; }
+
+        private Direction _facingDirection;
+        private Direction _lastMoveDirection;
 
         public Snake(Point startingPosition, Color color)
         {
             _segments.Add(startingPosition);
             Color = color;
+        }
+
+        // Ger tillbaka en storlek som pekar ett steg i directions riktning.
+        private Size ToUnitStepSize(Direction direction)
+        {
+            switch (direction)
+            {
+                case Direction.Up:
+                    return new Size(0, -1);
+                case Direction.Left:
+                    return new Size(-1, 0);
+                case Direction.Down:
+                    return new Size(0, 1);
+                case Direction.Right:
+                    return new Size(1, 0);
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(direction), direction,
+                        "Direction has a value that's not handled by the switch case.");
+            }
+        }
+
+        // Flyttar ormen om den har färdats tillräckligt långt.
+        public void Step()
+        {
+            _distanceTraveledSinceLastMove += _speed;
+            if (_distanceTraveledSinceLastMove > DistancePerMove)
+            {
+                _distanceTraveledSinceLastMove -= DistancePerMove;
+                MoveInFacingDirection();
+            }
+        }
+
+        private void MoveInFacingDirection()
+        {
+            var head = _segments.First();
+            var newHead = head + ToUnitStepSize(_facingDirection);
+            _segments.RotateOneStepRight();
+            _segments[0] = newHead;
+            _lastMoveDirection = _facingDirection;
         }
 
         private void GrowHead(int sizeChange)
