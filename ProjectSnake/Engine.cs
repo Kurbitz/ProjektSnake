@@ -87,7 +87,7 @@ namespace ProjectSnake
             // Add all ICollidables (food and each player's snake) to the same list for easy iteration.
             var collidables = new List<ICollidable>();
             collidables.AddRange(foods);
-            collidables.AddRange(_players.Select(player => player.Snake));
+            collidables.AddRange(_players);
 
             foreach (var player in _players)
             {

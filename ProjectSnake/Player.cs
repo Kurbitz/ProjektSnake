@@ -2,7 +2,7 @@
 
 namespace ProjectSnake
 {
-    public class Player
+    public class Player : ICollidable
     {
         public Snake Snake { get; }
         private int _score;
@@ -22,6 +22,22 @@ namespace ProjectSnake
         {
             _score += food.Points;
             Snake.Grow(food.LengthFactor);
+        }
+
+        public void OnCollision(Player player)
+        {
+            Snake.Die();
+            player._score += 5;
+        }
+
+        public bool CheckCollision(Snake snake)
+        {
+            return Snake.CheckCollision(snake);
+        }
+
+        public bool CheckCollision(Board board)
+        {
+            return Snake.CheckCollision(board);
         }
     }
 }
