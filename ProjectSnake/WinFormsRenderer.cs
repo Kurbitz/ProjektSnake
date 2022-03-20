@@ -8,6 +8,7 @@ namespace ProjectSnake
     {
         private List<Food> _food = new List<Food>();
         private List<Player> _players = new List<Player>();
+        private List<ScoreLabel> _scoreLabels = new List<ScoreLabel>();
 
         private Board _board;
 
@@ -35,6 +36,11 @@ namespace ProjectSnake
             _players.Add(player);
         }
 
+        public void Draw(ScoreLabel scoreLabel)
+        {
+            _scoreLabels.Add(scoreLabel);
+        }
+
         // Ritar ut all mat och alla ormar till fönstret som representeras av control och graphics.
         public void Display(Control control, Graphics graphics)
         {
@@ -60,6 +66,11 @@ namespace ProjectSnake
                     var drawingArea = new Rectangle(segmentPixelPosition, tileSize);
                     graphics.FillRectangle(brush, drawingArea);
                 }
+            }
+
+            foreach (var scoreLabel in _scoreLabels)
+            {
+                scoreLabel.UpdateText();
             }
         }
     }

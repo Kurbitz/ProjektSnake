@@ -100,6 +100,11 @@ namespace ProjectSnake
                 drawable.Draw(_renderer);
             }
 
+            foreach (var label in _scoreLabels)
+            {
+                _renderer.Draw(label);
+            }
+
             _renderer.Display((Control)obj, e.Graphics);
         }
 
