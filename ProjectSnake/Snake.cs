@@ -61,6 +61,11 @@ namespace ProjectSnake
         // Flyttar ormen om den har färdats tillräckligt långt.
         public void Step()
         {
+            if (!IsAlive)
+            {
+                return;
+            }
+
             _distanceTraveledSinceLastMove += _speed;
             if (_distanceTraveledSinceLastMove > DistancePerMove)
             {
@@ -88,8 +93,13 @@ namespace ProjectSnake
             _lastMoveDirection = _facingDirection;
         }
 
-        private void Grow(int sizeChange)
+        public void Grow(int sizeChange)
         {
+            if (!IsAlive)
+            {
+                return;
+            }
+
             if (sizeChange < 0)
             {
                 Shrink(-sizeChange);
@@ -117,6 +127,11 @@ namespace ProjectSnake
 
         public void Draw(IRenderer renderer)
         {
+            if (!IsAlive)
+            {
+                return;
+            }
+
             renderer.Draw(this);
         }
 
@@ -128,6 +143,12 @@ namespace ProjectSnake
         // Returns true if a snake's head collides with another snake segment
         public bool CheckCollision(Snake snake)
         {
+            // Om ormen är död så slutar den existera.
+            if (!IsAlive)
+            {
+                return false;
+            }
+
             // Special case when checking collisions between a snake and itself to avoid colliding with it's own head
             if (ReferenceEquals(this, snake))
             {
@@ -139,7 +160,15 @@ namespace ProjectSnake
         }
 
         // Returns true if a snake's head occupies a position
-        public bool CheckCollision(Point position) => Head == position;
+        public bool CheckCollision(Point position)
+        {
+            if (!IsAlive)
+            {
+                return false;
+            }
+
+            return Head == position;
+        }
 
         public IEnumerator<Point> GetEnumerator()
         {
