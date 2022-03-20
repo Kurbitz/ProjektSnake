@@ -26,7 +26,7 @@ namespace ProjectSnake
 
         public void OnCollision(Player player)
         {
-            Snake.Die();
+            Snake.IsAlive = false;
             player.Score += 5;
         }
 
