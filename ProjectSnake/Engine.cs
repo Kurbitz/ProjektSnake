@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -15,6 +15,7 @@ namespace ProjectSnake
         private List<Food> foods = new List<Food>();
         private Player[] _players;
         private Board board;
+        private Random _rand = new Random();
 
         private ScoreLabel[] _scoreLabels;
 
@@ -25,7 +26,6 @@ namespace ProjectSnake
             board.Width = 40;
             board.Height = 30;
 
-            foods.Add(new StandardFood(new Point(board.Width / 2, board.Height / 2)));
 
             _renderer = new WinFormsRenderer(board);
 
@@ -37,6 +37,8 @@ namespace ProjectSnake
             {
                 _main.Controls.Add(label);
             }
+
+            AddRandomFood();
 
             _main.KeyDown += MainOnKeyDown;
             _main.Paint += Draw;
@@ -92,15 +94,13 @@ namespace ProjectSnake
 
         private void TimerEvent(object sender, EventArgs e)
         {
-            _main.BackColor = System.Drawing.Color.Violet;
-
             foreach (var snake in _players.Select(p => p.Snake))
             {
                 snake.Step();
             }
 
             TryCollide();
-
+            SpawnFood();
             _main.Refresh();
         }
 
@@ -166,6 +166,63 @@ namespace ProjectSnake
         private void GameOver()
         {
             throw new NotImplementedException();
+        }
+
+        enum FoodTypes
+        {
+            Standard,
+            Valuable,
+            Diet
+        }
+
+        private void SpawnFood()
+        {
+            // Styr spawnrate och max antal mat på brädet
+            if (foods.Count >= 3 || _rand.Next(1, 100) > 2)
+            {
+                return;
+            }
+
+            AddRandomFood();
+        }
+
+        private void AddRandomFood()
+        {
+            // Gör en lista med alla möjliga platser på brädet
+            var freeSegments = (from x in Enumerable.Range(0, board.Width)
+                from y in Enumerable.Range(0, board.Height)
+                select new Point(x, y)).ToList();
+
+            // Ta bort alla upptagna positioner, där det finns ormar eller mat
+            foreach (var player in _players)
+            {
+                freeSegments.RemoveAll(p => player.Snake.CheckCollision(p));
+            }
+
+            foreach (var food in foods)
+            {
+                freeSegments.RemoveAll(p => p == food.position);
+            }
+
+            // generera en random mattyp och position
+            var foodTypes = Enum.GetValues(typeof(FoodTypes));
+            var randomFood = (FoodTypes) foodTypes.GetValue(_rand.Next(foodTypes.Length));
+            var pos = freeSegments[_rand.Next(freeSegments.Count)];
+
+            switch (randomFood)
+            {
+                case FoodTypes.Standard:
+                    foods.Add(new StandardFood(pos));
+                    break;
+                case FoodTypes.Valuable:
+                    foods.Add(new ValuableFood(pos));
+                    break;
+                case FoodTypes.Diet:
+                    foods.Add(new DietFood(pos));
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
     }
 }
