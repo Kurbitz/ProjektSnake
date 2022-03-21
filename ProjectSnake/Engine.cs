@@ -104,14 +104,7 @@ namespace ProjectSnake
         {
             _renderer.Clear();
 
-            var drawables = new List<IDrawable>();
-            drawables.AddRange(foods);
-            drawables.AddRange(_players);
-
-            foreach (var drawable in drawables)
-            {
-                drawable.Draw(_renderer);
-            }
+            Draw(_renderer);
 
             foreach (var label in _scoreLabels)
             {
@@ -119,6 +112,18 @@ namespace ProjectSnake
             }
 
             _renderer.Display((Control)obj, e.Graphics);
+        }
+
+        public void Draw(IRenderer renderer)
+        {
+            var drawables = new List<IDrawable>();
+            drawables.AddRange(foods);
+            drawables.AddRange(_players);
+
+            foreach (var drawable in drawables)
+            {
+                drawable.Draw(renderer);
+            }
         }
 
         // Checks each collidable for collisions and runs collision method if true
