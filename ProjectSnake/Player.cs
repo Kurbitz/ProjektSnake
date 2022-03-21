@@ -9,8 +9,9 @@ namespace ProjectSnake
 
         public static (PointF Position, Color Color)[] SnakeBlueprints { get; } =
         {
-            (new PointF(1F / 3F, 1F / 3F), Color.Green), (new PointF(2F / 3F, 1F / 3F), Color.Black),
-            (new PointF(1F / 3F, 2F / 3F), Color.Brown)
+            (new PointF(1F / 3F, 1F / 3F), Color.FromArgb(208, 21, 26)),
+            (new PointF(2F / 3F, 1F / 3F), Color.FromArgb(146, 146, 48)),
+            (new PointF(1F / 3F, 2F / 3F), Color.FromArgb(61, 131, 133))
         };
 
         public Player(Point snakeStartingPos, Color snakeColor)

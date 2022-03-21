@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -75,8 +75,6 @@ namespace ProjectSnake
 
         private void TimerEvent(object sender, EventArgs e)
         {
-            _main.BackColor = System.Drawing.Color.Violet;
-
             foreach (var snake in _players.Select(p => p.Snake))
             {
                 snake.Step();
