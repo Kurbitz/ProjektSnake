@@ -184,9 +184,17 @@ namespace ProjectSnake
 
             var randomFood = GetRandomFood();
 
+            // Se till att det inte finns för många DietFood på brädet
+            if (randomFood == FoodTypes.Diet)
+            {
+                if (foods.Count(f => f.GetType() == typeof(DietFood)) > 1)
+                {
+                    return;
+                }
+            }
+
             var foodPosition = GetFreePosition();
             AddFood(randomFood, foodPosition);
-            
         }
 
         private FoodTypes GetRandomFood()
