@@ -14,7 +14,7 @@ namespace ProjectSnake
         private Timer _timer = new Timer();
         private List<Food> foods = new List<Food>();
         private Player[] _players;
-        private Board board;
+        public Board Board;
         private Random _rand = new Random();
 
         private ScoreLabel[] _scoreLabels;
@@ -22,11 +22,10 @@ namespace ProjectSnake
         public void Run(MainForm mainForm)
         {
             _main = mainForm;
-            board.Width = 40;
-            board.Height = 30;
+            Board.Width = 40;
+            Board.Height = 30;
 
-
-            _renderer = new WinFormsRenderer(board);
+            _renderer = new WinFormsRenderer(Board);
 
             var playerCount = 2;
             _players = InitializePlayers(playerCount);
@@ -81,7 +80,7 @@ namespace ProjectSnake
             for (var i = 0; i < players.Length; ++i)
             {
                 var (relativePosition, color) = Player.SnakeBlueprints[i];
-                var absolutePosition = new PointF(relativePosition.X * board.Width, relativePosition.Y * board.Height);
+                var absolutePosition = new PointF(relativePosition.X * Board.Width, relativePosition.Y * Board.Height);
                 players[i] = new Player(Point.Truncate(absolutePosition), color);
                 players[i].controls = Controls.controlsBluprints[i];
             }
@@ -138,7 +137,7 @@ namespace ProjectSnake
             foreach (var player in _players)
             {
                 // Om Out of Bounds
-                if (player.CheckCollision(board))
+                if (player.CheckCollision(Board))
                 {
                     player.Snake.IsAlive = false;
                 }
@@ -206,8 +205,8 @@ namespace ProjectSnake
         private Point GetFreePosition()
         {
             // Gör en lista med alla möjliga platser på brädet
-            var freeSegments = (from x in Enumerable.Range(0, board.Width)
-                from y in Enumerable.Range(0, board.Height)
+            var freeSegments = (from x in Enumerable.Range(0, Board.Width)
+                from y in Enumerable.Range(0, Board.Height)
                 select new Point(x, y)).ToList();
 
             // Ta bort alla upptagna positioner, där det finns ormar eller mat
@@ -226,7 +225,7 @@ namespace ProjectSnake
 
         private void AddFood(FoodTypes type, Point position)
         {
-            if (position.X < 0 || position.Y < 0 || position.X >= board.Width || position.Y >= board.Height)
+            if (position.X < 0 || position.Y < 0 || position.X >= Board.Width || position.Y >= Board.Height)
             {
                 throw new ArgumentOutOfRangeException();
             }
