@@ -10,8 +10,9 @@ namespace ProjectSnake
         [STAThread]
         private static void Main()
         {
+            var mainForm = new MainForm();
             var engine = new Engine();
-            engine.Run();
+            engine.Run(mainForm);
         }
     }
 }

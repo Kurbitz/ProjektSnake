@@ -9,7 +9,7 @@ namespace ProjectSnake
 {
     internal class Engine
     {
-        private MainForm _main = new MainForm();
+        private MainForm _main;
         private WinFormsRenderer _renderer;
         private Timer _timer = new Timer();
         private List<Food> foods = new List<Food>();
@@ -19,8 +19,9 @@ namespace ProjectSnake
 
         private ScoreLabel[] _scoreLabels;
 
-        public void Run()
+        public void Run(MainForm mainForm)
         {
+            _main = mainForm;
             Application.EnableVisualStyles();
             //Application.SetCompatibleTextRenderingDefault(false);
             board.Width = 40;
