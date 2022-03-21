@@ -1,4 +1,6 @@
 ﻿using System.Drawing;
+using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace ProjectSnake
 {
@@ -13,7 +15,8 @@ namespace ProjectSnake
             (new PointF(2F / 3F, 1F / 3F), Color.FromArgb(146, 146, 48)),
             (new PointF(1F / 3F, 2F / 3F), Color.FromArgb(61, 131, 133))
         };
-
+        public Controls controls;
+        
         public Player(Point snakeStartingPos, Color snakeColor)
         {
             Snake = new Snake(snakeStartingPos, snakeColor);

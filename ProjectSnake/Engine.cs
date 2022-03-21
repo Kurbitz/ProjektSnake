@@ -38,12 +38,29 @@ namespace ProjectSnake
                 _main.Controls.Add(label);
             }
 
-            AddRandomFood(); 
+            AddRandomFood();
+
+            _main.KeyDown += MainOnKeyDown;
             _main.Paint += Draw;
             _timer.Tick += TimerEvent;
             _timer.Interval = 1000 / 60;
             _timer.Start();
             Application.Run(_main);
+        }
+
+        private void MainOnKeyDown(object sender, KeyEventArgs e)
+        {
+            var key = e.KeyCode;
+            foreach (var player in _players)
+            {
+                var dirction = player.controls.todirection(key);
+                if (dirction == null)
+                {
+                    continue;
+                }
+                player.Snake.Move((Direction)dirction);
+            }
+           
         }
 
         private ScoreLabel[] InitializeScoreLabels(Player[] players)
@@ -69,6 +86,7 @@ namespace ProjectSnake
                 var (relativePosition, color) = Player.SnakeBlueprints[i];
                 var absolutePosition = new PointF(relativePosition.X * board.Width, relativePosition.Y * board.Height);
                 players[i] = new Player(Point.Truncate(absolutePosition), color);
+                players[i].controls = Controls.controlsBluprints[i];
             }
 
             return players;
