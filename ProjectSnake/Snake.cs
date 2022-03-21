@@ -33,6 +33,7 @@ namespace ProjectSnake
         public Snake(Point startingPosition, Color color)
         {
             _segments.Add(startingPosition);
+            _amountToGrow = 4;
             Color = color;
         }
 
@@ -150,22 +151,22 @@ namespace ProjectSnake
             _segments.Clear();
         }
 
-        // Returns true if a snake's head collides with another snake segment
+        // Kollar om ormen krockar med en annan orm eller sig själv
         public bool CheckCollision(Snake snake)
         {
-            // Om ormen är död så slutar den existera.
+            // Om ormen är död så ska den inte kunna krocka
             if (!IsAlive)
             {
                 return false;
             }
 
-            // Special case when checking collisions between a snake and itself to avoid colliding with it's own head
+            // Om ormen kollar krock med sig själv, kollar om det finns fler än ett segment på samma position
             if (ReferenceEquals(this, snake))
             {
-                return snake._segments.Where(segment => segment != Head).Any(segment => CheckCollision(segment));
+                return _segments.Count != _segments.Distinct().Count();
             }
 
-            // If colliding with another snake
+            // Kolla om den krockar med den andra ormen
             return snake._segments.Any(segment => CheckCollision(segment));
         }
 
