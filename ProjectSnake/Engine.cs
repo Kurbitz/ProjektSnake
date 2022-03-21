@@ -26,7 +26,6 @@ namespace ProjectSnake
             board.Width = 40;
             board.Height = 30;
 
-           AddRandomFood(); 
 
             _renderer = new WinFormsRenderer(board);
 
@@ -39,6 +38,7 @@ namespace ProjectSnake
                 _main.Controls.Add(label);
             }
 
+            AddRandomFood(); 
             _main.Paint += Draw;
             _timer.Tick += TimerEvent;
             _timer.Interval = 1000 / 60;
