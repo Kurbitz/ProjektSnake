@@ -13,7 +13,7 @@ namespace ProjectSnake
         private WinFormsRenderer _renderer;
         private Timer _timer = new Timer();
         private List<Food> foods = new List<Food>();
-        private Player[] _players;
+        public Player[] Players;
         public Board Board;
         private Random _rand = new Random();
 
@@ -28,8 +28,8 @@ namespace ProjectSnake
             _renderer = new WinFormsRenderer(Board);
 
             var playerCount = 2;
-            _players = InitializePlayers(playerCount);
-            _scoreLabels = InitializeScoreLabels(_players);
+            Players = InitializePlayers(playerCount);
+            _scoreLabels = InitializeScoreLabels(Players);
 
             foreach (var label in _scoreLabels)
             {
@@ -47,7 +47,7 @@ namespace ProjectSnake
         private void MainOnKeyDown(object sender, KeyEventArgs e)
         {
             var key = e.KeyCode;
-            foreach (var player in _players)
+            foreach (var player in Players)
             {
                 var dirction = player.controls.todirection(key);
                 if (dirction == null)
@@ -90,7 +90,7 @@ namespace ProjectSnake
 
         private void TimerEvent(object sender, EventArgs e)
         {
-            foreach (var snake in _players.Select(p => p.Snake))
+            foreach (var snake in Players.Select(p => p.Snake))
             {
                 snake.Step();
             }
@@ -118,7 +118,7 @@ namespace ProjectSnake
         {
             var drawables = new List<IDrawable>();
             drawables.AddRange(foods);
-            drawables.AddRange(_players);
+            drawables.AddRange(Players);
 
             foreach (var drawable in drawables)
             {
@@ -132,14 +132,14 @@ namespace ProjectSnake
             // Add all ICollidables (food and each player's snake) to the same list for easy iteration.
             var collidables = new List<ICollidable>();
             collidables.AddRange(foods);
-            collidables.AddRange(_players);
+            collidables.AddRange(Players);
 
-            if (_players.All(player => !player.Snake.IsAlive))
+            if (Players.All(player => !player.Snake.IsAlive))
             {
                 GameOver();
             }
 
-            foreach (var player in _players)
+            foreach (var player in Players)
             {
                 // Om Out of Bounds
                 if (player.CheckCollision(Board))
@@ -155,7 +155,7 @@ namespace ProjectSnake
             }
 
             foods.RemoveAll(food => !food.IsActive);
-            foreach (var snake in _players.Select(player => player.Snake))
+            foreach (var snake in Players.Select(player => player.Snake))
             {
                 if (!snake.IsAlive)
                 {
@@ -215,7 +215,7 @@ namespace ProjectSnake
                 select new Point(x, y)).ToList();
 
             // Ta bort alla upptagna positioner, där det finns ormar eller mat
-            foreach (var player in _players)
+            foreach (var player in Players)
             {
                 freeSegments.RemoveAll(p => player.Snake.CheckCollision(p));
             }
