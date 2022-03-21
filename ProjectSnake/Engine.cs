@@ -10,7 +10,7 @@ namespace ProjectSnake
     internal class Engine
     {
         private MainForm _main;
-        private WinFormsRenderer _renderer;
+        public WinFormsRenderer Renderer;
         private Timer _timer = new Timer();
         private List<Food> foods = new List<Food>();
         public Player[] Players;
@@ -25,7 +25,7 @@ namespace ProjectSnake
             Board.Width = 40;
             Board.Height = 30;
 
-            _renderer = new WinFormsRenderer(Board);
+            Renderer = new WinFormsRenderer(Board);
 
             var playerCount = 2;
             Players = InitializePlayers(playerCount);
@@ -102,16 +102,16 @@ namespace ProjectSnake
 
         private void Draw(Object obj, PaintEventArgs e)
         {
-            _renderer.Clear();
+            Renderer.Clear();
 
-            Draw(_renderer);
+            Draw(Renderer);
 
             foreach (var label in _scoreLabels)
             {
-                _renderer.Draw(label);
+                Renderer.Draw(label);
             }
 
-            _renderer.Display((Control)obj, e.Graphics);
+            Renderer.Display((Control)obj, e.Graphics);
         }
 
         public void Draw(IRenderer renderer)

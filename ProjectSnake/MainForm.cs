@@ -9,6 +9,7 @@ namespace ProjectSnake
         private double aspectRatio = 0.75;
 
         private Engine _engine;
+        private WinFormsRenderer _renderer;
 
         public MainForm(int width = 800)
         {
@@ -19,6 +20,7 @@ namespace ProjectSnake
 
             _engine = new Engine();
             _engine.Run(this);
+            _renderer = _engine.Renderer;
         }
 
         private void MainForm_Resize(object sender, EventArgs e)
