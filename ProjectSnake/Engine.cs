@@ -22,8 +22,6 @@ namespace ProjectSnake
         public void Run(MainForm mainForm)
         {
             _main = mainForm;
-            Application.EnableVisualStyles();
-            //Application.SetCompatibleTextRenderingDefault(false);
             board.Width = 40;
             board.Height = 30;
 
@@ -45,7 +43,6 @@ namespace ProjectSnake
             _timer.Tick += TimerEvent;
             _timer.Interval = 1000 / 60;
             _timer.Start();
-            Application.Run(_main);
         }
 
         private void MainOnKeyDown(object sender, KeyEventArgs e)
@@ -137,7 +134,7 @@ namespace ProjectSnake
             {
                 GameOver();
             }
-            
+
             foreach (var player in _players)
             {
                 // Om Out of Bounds
