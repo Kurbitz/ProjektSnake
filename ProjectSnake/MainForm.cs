@@ -8,6 +8,8 @@ namespace ProjectSnake
     {
         private double aspectRatio = 0.75;
 
+        private Engine _engine;
+
         public MainForm(int width = 800)
         {
             InitializeComponent();
@@ -15,8 +17,8 @@ namespace ProjectSnake
             BackColor = Color.FromArgb(29, 29, 29);
             DoubleBuffered = true;
 
-            var engine = new Engine();
-            engine.Run(this);
+            _engine = new Engine();
+            _engine.Run(this);
         }
 
         private void MainForm_Resize(object sender, EventArgs e)
