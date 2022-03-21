@@ -11,8 +11,6 @@ namespace ProjectSnake
         private static void Main()
         {
             var mainForm = new MainForm();
-            var engine = new Engine();
-            engine.Run(mainForm);
         }
     }
 }

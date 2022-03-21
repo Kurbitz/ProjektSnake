@@ -14,6 +14,9 @@ namespace ProjectSnake
             ClientSize = new Size(width, (int)(width * aspectRatio));
             BackColor = Color.FromArgb(29, 29, 29);
             DoubleBuffered = true;
+
+            var engine = new Engine();
+            engine.Run(this);
         }
 
         private void MainForm_Resize(object sender, EventArgs e)
