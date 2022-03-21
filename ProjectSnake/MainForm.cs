@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -13,6 +13,7 @@ namespace ProjectSnake
             InitializeComponent();
             ClientSize = new Size(width, (int)(width * aspectRatio));
             BackColor = Color.FromArgb(29, 29, 29);
+            DoubleBuffered = true;
         }
 
         private void MainForm_Resize(object sender, EventArgs e)
