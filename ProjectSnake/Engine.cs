@@ -37,6 +37,8 @@ namespace ProjectSnake
             {
                 _main.Controls.Add(label);
             }
+
+            AddFood(FoodTypes.Standard, GetFreePosition());
             _main.KeyDown += MainOnKeyDown;
             _main.Paint += Draw;
             _timer.Tick += TimerEvent;
