@@ -26,7 +26,7 @@ namespace ProjectSnake
             board.Width = 40;
             board.Height = 30;
 
-            foods.Add(new StandardFood(new Point(board.Width / 2, board.Height / 2)));
+           AddRandomFood(); 
 
             _renderer = new WinFormsRenderer(board);
 
