@@ -82,7 +82,7 @@ namespace ProjectSnake
             }
 
             TryCollide();
-
+            SpawnFood();
             _main.Refresh();
         }
 
@@ -156,6 +156,18 @@ namespace ProjectSnake
             Valuable,
             Diet
         }
+
+        private void SpawnFood()
+        {
+            // Styr spawnrate och max antal mat på brädet
+            if (foods.Count >= 3 || _rand.Next(1, 100) > 2)
+            {
+                return;
+            }
+
+            AddRandomFood();
+        }
+
         private void AddRandomFood()
         {
             // Gör en lista med alla möjliga platser på brädet
