@@ -5,7 +5,7 @@ namespace ProjectSnake
 {
     public class Controls
     {
-        private static Dictionary<Keys, Direction> _player1 = new Dictionary<Keys, Direction>()
+        private static readonly Dictionary<Keys, Direction> Player1 = new Dictionary<Keys, Direction>()
         {
             {Keys.Left, Direction.Left},
             {Keys.Right, Direction.Right},
@@ -13,14 +13,14 @@ namespace ProjectSnake
             {Keys.Down, Direction.Down}
         };
 
-        private static Dictionary<Keys, Direction> _player2 = new Dictionary<Keys, Direction>()
+        private static readonly Dictionary<Keys, Direction> Player2 = new Dictionary<Keys, Direction>()
         {
             {Keys.A, Direction.Left}, {Keys.D, Direction.Right}, {Keys.W, Direction.Up}, {Keys.S, Direction.Down}
         };
 
-        public static Controls[] ControlsBlueprints = {new Controls(_player1), new Controls(_player2)};
+        public static readonly Controls[] ControlsBlueprints = {new Controls(Player1), new Controls(Player2)};
 
-        private Dictionary<Keys, Direction> _dictionary;
+        private readonly Dictionary<Keys, Direction> _dictionary;
 
         public Controls(Dictionary<Keys, Direction> d)
         {
