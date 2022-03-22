@@ -11,12 +11,13 @@ namespace ProjectSnake
 
         public static (PointF Position, SnakeColorScheme ColorScheme)[] SnakeBlueprints { get; } =
         {
-            (new PointF(1F / 3F, 1F / 3F), new SnakeColorScheme(Gruvbox.Red, Gruvbox.DarkRed)), 
+            (new PointF(1F / 3F, 1F / 3F), new SnakeColorScheme(Gruvbox.Red, Gruvbox.DarkRed)),
             (new PointF(2F / 3F, 1F / 3F), new SnakeColorScheme(Gruvbox.Green, Gruvbox.DarkGreen)),
             (new PointF(1F / 3F, 2F / 3F), new SnakeColorScheme(Gruvbox.Blue, Gruvbox.DarkBlue))
         };
+
         public Controls controls;
-        
+
         public Player(Point snakeStartingPos, SnakeColorScheme snakeColorSheme)
         {
             Snake = new Snake(snakeStartingPos, snakeColorSheme);
