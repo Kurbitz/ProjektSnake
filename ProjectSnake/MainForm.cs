@@ -23,7 +23,8 @@ namespace ProjectSnake
 
             _engine = new Engine();
             _engine.Run(this);
-            _renderer = _engine.Renderer;
+            _renderer = new WinFormsRenderer(_engine.Board);
+
             _scoreLabels = InitializeScoreLabels(_engine.Players);
 
             foreach (var label in _scoreLabels)

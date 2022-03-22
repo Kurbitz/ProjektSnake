@@ -22,8 +22,6 @@ namespace ProjectSnake
             Board.Width = 40;
             Board.Height = 30;
 
-            Renderer = new WinFormsRenderer(Board);
-
             var playerCount = 2;
             Players = InitializePlayers(playerCount);
 
