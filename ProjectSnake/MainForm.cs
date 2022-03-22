@@ -112,7 +112,7 @@ namespace ProjectSnake
             var key = e.KeyCode;
             foreach (var player in _engine.Players)
             {
-                var dirction = player.controls.todirection(key);
+                var dirction = player.controls.ToDirection(key);
                 if (dirction == null)
                 {
                     continue;

@@ -10,7 +10,7 @@ namespace ProjectSnake
 {
     public class Controls
     {
-        static Dictionary<Keys, Direction> player1 = new Dictionary<Keys, Direction>()
+        static Dictionary<Keys, Direction> _player1 = new Dictionary<Keys, Direction>()
         {
             {Keys.Left, Direction.Left},
             {Keys.Right, Direction.Right},
@@ -18,24 +18,24 @@ namespace ProjectSnake
             {Keys.Down, Direction.Down}
         };
 
-        static Dictionary<Keys, Direction> player2 = new Dictionary<Keys, Direction>()
+        static Dictionary<Keys, Direction> _player2 = new Dictionary<Keys, Direction>()
         {
             {Keys.A, Direction.Left}, {Keys.D, Direction.Right}, {Keys.W, Direction.Up}, {Keys.S, Direction.Down}
         };
 
-        public static Controls[] controlsBluprints = {new Controls(player1), new Controls(player2)};
+        public static Controls[] ControlsBlueprints = {new Controls(_player1), new Controls(_player2)};
 
-        Dictionary<Keys, Direction> dictionary;
+        Dictionary<Keys, Direction> _dictionary;
 
         public Controls(Dictionary<Keys, Direction> d)
         {
-            dictionary = d;
+            _dictionary = d;
         }
 
-        public Direction? todirection(Keys input)
+        public Direction? ToDirection(Keys input)
         {
             Direction ourDirection;
-            var res = dictionary.TryGetValue(input, out ourDirection);
+            var res = _dictionary.TryGetValue(input, out ourDirection);
             if (res)
             {
                 return ourDirection;

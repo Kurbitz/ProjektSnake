@@ -21,7 +21,7 @@ namespace ProjectSnake
             // Det måste finnas tillräckligt många blueprints för att kunna stödja alla möjliga spelarantal.
             // Om man vill stödja fler spelare får man lägga till flera blueprints.
             Debug.Assert(Player.SnakeBlueprints.Length >= MaxPlayerCount);
-            Debug.Assert(Controls.controlsBluprints.Length >= MaxPlayerCount);
+            Debug.Assert(Controls.ControlsBlueprints.Length >= MaxPlayerCount);
 
             Board.Width = 40;
             Board.Height = 30;
@@ -41,7 +41,7 @@ namespace ProjectSnake
                 var (relativePosition, color) = Player.SnakeBlueprints[i];
                 var absolutePosition = new PointF(relativePosition.X * Board.Width, relativePosition.Y * Board.Height);
                 players[i] = new Player(Point.Truncate(absolutePosition), color);
-                players[i].controls = Controls.controlsBluprints[i];
+                players[i].controls = Controls.ControlsBlueprints[i];
             }
 
             return players;
