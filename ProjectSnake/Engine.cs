@@ -28,22 +28,6 @@ namespace ProjectSnake
             Players = InitializePlayers(playerCount);
 
             AddFood(FoodTypes.Standard, GetFreePosition());
-            _main.KeyDown += MainOnKeyDown;
-        }
-
-        private void MainOnKeyDown(object sender, KeyEventArgs e)
-        {
-            var key = e.KeyCode;
-            foreach (var player in Players)
-            {
-                var dirction = player.controls.todirection(key);
-                if (dirction == null)
-                {
-                    continue;
-                }
-
-                player.Snake.Move((Direction)dirction);
-            }
         }
 
         private Player[] InitializePlayers(int count)

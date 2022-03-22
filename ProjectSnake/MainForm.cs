@@ -32,9 +32,25 @@ namespace ProjectSnake
             }
 
             Paint += Draw;
+            KeyDown += MainOnKeyDown;
             _timer.Tick += TimerEvent;
             _timer.Interval = 1000 / 60;
             _timer.Start();
+        }
+
+        private void MainOnKeyDown(object sender, KeyEventArgs e)
+        {
+            var key = e.KeyCode;
+            foreach (var player in _engine.Players)
+            {
+                var dirction = player.controls.todirection(key);
+                if (dirction == null)
+                {
+                    continue;
+                }
+
+                player.Snake.Move((Direction)dirction);
+            }
         }
 
         private ScoreLabel[] InitializeScoreLabels(Player[] players)
