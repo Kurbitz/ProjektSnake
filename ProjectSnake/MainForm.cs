@@ -12,7 +12,7 @@ namespace ProjectSnake
         private Engine _engine;
         private WinFormsRenderer _renderer;
 
-        private readonly Timer _timer = new Timer();
+        private readonly Timer _frameTimer = new Timer();
         private ScoreLabel[] _scoreLabels;
 
         private readonly Button _startGameButton = new Button();
@@ -127,14 +127,14 @@ namespace ProjectSnake
                 Controls.Add(label);
             }
 
-            Paint += Draw;
-            KeyDown += MainOnKeyDown;
-            _timer.Tick += TimerEvent;
-            _timer.Interval = 1000 / 60;
-            _timer.Start();
+            Paint += MainFormOnPaint;
+            KeyDown += MainFormOnKeyDown;
+            _frameTimer.Tick += FrameTimerOnTick;
+            _frameTimer.Interval = 1000 / 60;
+            _frameTimer.Start();
         }
 
-        private void MainOnKeyDown(object sender, KeyEventArgs e)
+        private void MainFormOnKeyDown(object sender, KeyEventArgs e)
         {
             var key = e.KeyCode;
             if (key == Keys.Escape)
@@ -175,7 +175,7 @@ namespace ProjectSnake
             return labels;
         }
 
-        private void Draw(Object obj, PaintEventArgs e)
+        private void MainFormOnPaint(Object obj, PaintEventArgs e)
         {
             _renderer.Clear();
 
@@ -189,14 +189,14 @@ namespace ProjectSnake
             _renderer.Display((Control)obj, e.Graphics);
         }
 
-        private void TimerEvent(object sender, EventArgs e)
+        private void FrameTimerOnTick(object sender, EventArgs e)
         {
             if (_engine.GameOver)
             {
                 _engine.ClearBoard();
                 GameOverDisplay();
                 Refresh();
-                _timer.Stop();
+                _frameTimer.Stop();
             }
             else
             {
