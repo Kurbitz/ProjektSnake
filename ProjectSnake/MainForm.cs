@@ -137,7 +137,7 @@ namespace ProjectSnake
         private void MainFormOnKeyDown(object sender, KeyEventArgs e)
         {
             var key = e.KeyCode;
-            if (key == Keys.Escape)
+            if (key == Keys.Escape && !_engine.GameOver)
             {
                 _engine.IsPaused = !_engine.IsPaused;
                 _pauseLabel.Visible = _engine.IsPaused;
