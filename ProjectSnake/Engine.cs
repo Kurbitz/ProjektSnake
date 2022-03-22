@@ -109,7 +109,7 @@ namespace ProjectSnake
             }
         }
 
-        enum FoodTypes
+        private enum FoodTypes
         {
             Standard,
             Valuable,
