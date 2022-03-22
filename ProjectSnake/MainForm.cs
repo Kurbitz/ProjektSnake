@@ -11,6 +11,8 @@ namespace ProjectSnake
         private Engine _engine;
         private WinFormsRenderer _renderer;
 
+        private Timer _timer = new Timer();
+
         public MainForm(int width = 800)
         {
             InitializeComponent();
@@ -21,6 +23,17 @@ namespace ProjectSnake
             _engine = new Engine();
             _engine.Run(this);
             _renderer = _engine.Renderer;
+
+            _timer.Tick += TimerEvent;
+            _timer.Interval = 1000 / 60;
+            _timer.Start();
+        }
+
+        private void TimerEvent(object sender, EventArgs e)
+        {
+            _engine.Tick();
+
+            Refresh();
         }
 
         private void MainForm_Resize(object sender, EventArgs e)

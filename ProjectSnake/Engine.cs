@@ -11,7 +11,6 @@ namespace ProjectSnake
     {
         private MainForm _main;
         public WinFormsRenderer Renderer;
-        private Timer _timer = new Timer();
         private List<Food> foods = new List<Food>();
         public Player[] Players;
         public Board Board;
@@ -39,9 +38,6 @@ namespace ProjectSnake
             AddFood(FoodTypes.Standard, GetFreePosition());
             _main.KeyDown += MainOnKeyDown;
             _main.Paint += Draw;
-            _timer.Tick += TimerEvent;
-            _timer.Interval = 1000 / 60;
-            _timer.Start();
         }
 
         private void MainOnKeyDown(object sender, KeyEventArgs e)
@@ -86,13 +82,6 @@ namespace ProjectSnake
             }
 
             return players;
-        }
-
-        private void TimerEvent(object sender, EventArgs e)
-        {
-            Tick();
-
-            _main.Refresh();
         }
 
         public void Tick()
