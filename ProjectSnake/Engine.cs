@@ -14,6 +14,7 @@ namespace ProjectSnake
         public Player[] Players;
         public Board Board;
         private Random _rand = new Random();
+        public bool GameOver { get; private set; } = false;
 
         public Engine(int playerCount)
         {
@@ -80,7 +81,7 @@ namespace ProjectSnake
 
             if (Players.All(player => !player.Snake.IsAlive))
             {
-                GameOver();
+                GameOver = true;
             }
 
             foreach (var player in Players)
@@ -106,11 +107,6 @@ namespace ProjectSnake
                     snake.Clear();
                 }
             }
-        }
-
-        private void GameOver()
-        {
-            throw new NotImplementedException();
         }
 
         enum FoodTypes
