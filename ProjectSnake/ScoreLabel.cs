@@ -10,7 +10,7 @@ namespace ProjectSnake
         public ScoreLabel(Player player)
         {
             _player = player;
-            ForeColor = player.Snake.Color;
+            ForeColor = player.Snake.ColorScheme.Head;
             BackColor = Color.Transparent;
         }
 

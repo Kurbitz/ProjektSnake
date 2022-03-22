@@ -60,12 +60,12 @@ namespace ProjectSnake
 
             foreach (var player in _players)
             {
-                var brush = new SolidBrush(player.Snake.Color);
+                var bodyBrush = new SolidBrush(player.Snake.ColorScheme.Body);
                 foreach (var segment in player.Snake)
                 {
                     var segmentPixelPosition = new Point(segment.X * tileSize.Width, segment.Y * tileSize.Height);
                     var drawingArea = new Rectangle(segmentPixelPosition, tileSize);
-                    graphics.FillRectangle(brush, drawingArea);
+                    graphics.FillRectangle(bodyBrush, drawingArea);
                 }
             }
 
