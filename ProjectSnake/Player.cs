@@ -7,18 +7,18 @@ namespace ProjectSnake
         public Snake Snake { get; }
         public int Score;
 
-        public static (PointF Position, SnakeColorScheme ColorScheme)[] SnakeBlueprints { get; } =
+        public static (PointF Position, Direction initialDirection, SnakeColorScheme ColorScheme)[] SnakeBlueprints { get; } =
         {
-            (new PointF(1F / 3F, 1F / 3F), new SnakeColorScheme(Gruvbox.Red, Gruvbox.DarkRed)),
-            (new PointF(2F / 3F, 1F / 3F), new SnakeColorScheme(Gruvbox.Green, Gruvbox.DarkGreen)),
-            (new PointF(1F / 3F, 2F / 3F), new SnakeColorScheme(Gruvbox.Blue, Gruvbox.DarkBlue))
+            (new PointF(1F / 3F, 1F / 3F), Direction.Right ,new SnakeColorScheme(Gruvbox.Red, Gruvbox.DarkRed)),
+            (new PointF(2F / 3F, 1F / 3F), Direction.Down ,new SnakeColorScheme(Gruvbox.Green, Gruvbox.DarkGreen)),
+            (new PointF(1F / 3F, 2F / 3F), Direction.Left ,new SnakeColorScheme(Gruvbox.Blue, Gruvbox.DarkBlue))
         };
 
         public Controls Controls;
 
-        public Player(Point snakeStartingPos, SnakeColorScheme snakeColorScheme)
+        public Player(Point snakeStartingPos, Direction initialDirection, SnakeColorScheme snakeColorScheme)
         {
-            Snake = new Snake(snakeStartingPos, snakeColorScheme);
+            Snake = new Snake(snakeStartingPos, initialDirection, snakeColorScheme);
         }
 
         public void OnCollision(Food food)
