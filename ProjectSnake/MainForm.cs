@@ -22,7 +22,7 @@ namespace ProjectSnake
             DoubleBuffered = true;
 
             _engine = new Engine();
-            _engine.Run(this);
+            _engine.Run();
             _renderer = new WinFormsRenderer(_engine.Board);
 
             _scoreLabels = InitializeScoreLabels(_engine.Players);

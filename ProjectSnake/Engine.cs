@@ -3,22 +3,18 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Windows.Forms;
 
 namespace ProjectSnake
 {
     internal class Engine
     {
-        private MainForm _main;
-        public WinFormsRenderer Renderer;
         private List<Food> foods = new List<Food>();
         public Player[] Players;
         public Board Board;
         private Random _rand = new Random();
 
-        public void Run(MainForm mainForm)
+        public void Run()
         {
-            _main = mainForm;
             Board.Width = 40;
             Board.Height = 30;
 
