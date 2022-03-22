@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace ProjectSnake
@@ -61,11 +62,20 @@ namespace ProjectSnake
             foreach (var player in _players)
             {
                 var bodyBrush = new SolidBrush(player.Snake.ColorScheme.Body);
+                var headBrush = new SolidBrush(player.Snake.ColorScheme.Head);
                 foreach (var segment in player.Snake)
                 {
                     var segmentPixelPosition = new Point(segment.X * tileSize.Width, segment.Y * tileSize.Height);
                     var drawingArea = new Rectangle(segmentPixelPosition, tileSize);
                     graphics.FillRectangle(bodyBrush, drawingArea);
+                }
+
+                if (player.Snake.IsAlive)
+                {
+                    var head = player.Snake.Last();
+                    var headSegmentPosition = new Point(head.X * tileSize.Width, head.Y * tileSize.Height);
+                    var faceArea = new Rectangle(headSegmentPosition, tileSize);
+                    graphics.FillRectangle(headBrush, faceArea);
                 }
             }
 
