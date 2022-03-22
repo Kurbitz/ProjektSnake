@@ -5,11 +5,11 @@ namespace ProjectSnake
     public abstract class Food : ICollidable, IDrawable
     {
         public int Points { get; }
-        
+
         public int LengthFactor { get; }
 
         public bool IsActive { get; private set; } = true;
-        
+
         public Point position
         {
             get;
@@ -18,7 +18,7 @@ namespace ProjectSnake
 
         public Color Color { get; }
 
-        public Food(Point pos, Color color, int points, int lengthFactor)
+        protected Food(Point pos, Color color, int points, int lengthFactor)
         {
             position = pos;
             Color = color;
