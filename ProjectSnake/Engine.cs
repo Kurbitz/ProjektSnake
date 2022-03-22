@@ -122,10 +122,14 @@ namespace ProjectSnake
 
         private void SpawnFood()
         {
-            // Styr spawnrate och max antal mat på brädet
-            if (foods.Count >= 3 || _rand.Next(1, 100) > 2)
+            // Se till att det finns minst en mat på brädet
+            if (foods.Count > 0)
             {
-                return;
+                // Styr spawnrate och max antal mat på brädet
+                if (foods.Count >= 3 || _rand.Next(1, 100) > 2)
+                {
+                    return;
+                }
             }
 
             var randomFood = GetRandomFood();
