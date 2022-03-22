@@ -21,8 +21,7 @@ namespace ProjectSnake
             BackColor = Color.FromArgb(29, 29, 29);
             DoubleBuffered = true;
 
-            _engine = new Engine();
-            _engine.Run();
+            _engine = new Engine(2);
             _renderer = new WinFormsRenderer(_engine.Board);
 
             _scoreLabels = InitializeScoreLabels(_engine.Players);

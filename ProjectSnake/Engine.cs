@@ -13,12 +13,11 @@ namespace ProjectSnake
         public Board Board;
         private Random _rand = new Random();
 
-        public void Run()
+        public Engine(int playerCount)
         {
             Board.Width = 40;
             Board.Height = 30;
 
-            var playerCount = 2;
             Players = InitializePlayers(playerCount);
 
             AddFood(FoodTypes.Standard, GetFreePosition());
