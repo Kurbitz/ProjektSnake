@@ -30,11 +30,12 @@ namespace ProjectSnake
 
         public bool IsAlive { get; set; } = true;
 
-        public Snake(Point startingPosition, SnakeColorScheme colorScheme)
+        public Snake(Point startingPosition, Direction initialDirection, SnakeColorScheme colorScheme)
         {
             _segments.Add(startingPosition);
             _amountToGrow = 4;
             ColorScheme = colorScheme;
+            _facingDirection = initialDirection;
         }
 
         // Ger tillbaka en storlek som pekar ett steg i directions riktning.
