@@ -29,8 +29,6 @@ namespace ProjectSnake
             Text = "Snake 🐍";
 
             _startGameButton.Text = "Start Game";
-            _startGameButton.Location = new Point(ClientSize.Width / 2 - _startGameButton.Width / 2,
-                ClientSize.Height / 2 - _startGameButton.Height / 2);
             _startGameButton.ForeColor = Gruvbox.White;
             _startGameButton.BackColor = Gruvbox.DarkGray;
             _startGameButton.Anchor = AnchorStyles.None;
@@ -50,8 +48,6 @@ namespace ProjectSnake
             _playerCountComboBox.SelectedIndex = 0;
             _playerCountComboBox.AutoSize = true;
             _playerCountComboBox.Anchor = AnchorStyles.None;
-            _playerCountComboBox.Location = new Point(ClientSize.Width / 2 - _playerCountComboBox.Width / 2,
-                _startGameButton.Top - _playerCountComboBox.Height);
             _playerCountComboBox.FlatStyle = FlatStyle.Flat;
             _playerCountComboBox.BackColor = Gruvbox.DarkGray;
             _playerCountComboBox.ForeColor = Gruvbox.White;
