@@ -38,8 +38,7 @@ namespace ProjectSnake
                 _main.Controls.Add(label);
             }
 
-            AddRandomFood();
-
+            AddFood(FoodTypes.Standard, GetFreePosition());
             _main.KeyDown += MainOnKeyDown;
             _main.Paint += Draw;
             _timer.Tick += TimerEvent;
@@ -183,10 +182,30 @@ namespace ProjectSnake
                 return;
             }
 
-            AddRandomFood();
+            var randomFood = GetRandomFood();
+
+            // Se till att det inte finns för många DietFood på brädet
+            if (randomFood == FoodTypes.Diet)
+            {
+                if (foods.Count(f => f.GetType() == typeof(DietFood)) > 1)
+                {
+                    return;
+                }
+            }
+
+            var foodPosition = GetFreePosition();
+            AddFood(randomFood, foodPosition);
         }
 
-        private void AddRandomFood()
+        private FoodTypes GetRandomFood()
+        {
+            // generera en random mattyp och position
+            var foodTypes = Enum.GetValues(typeof(FoodTypes));
+            var randomFood = (FoodTypes)foodTypes.GetValue(_rand.Next(foodTypes.Length));
+            return randomFood;
+        }
+
+        private Point GetFreePosition()
         {
             // Gör en lista med alla möjliga platser på brädet
             var freeSegments = (from x in Enumerable.Range(0, board.Width)
@@ -204,21 +223,26 @@ namespace ProjectSnake
                 freeSegments.RemoveAll(p => p == food.position);
             }
 
-            // generera en random mattyp och position
-            var foodTypes = Enum.GetValues(typeof(FoodTypes));
-            var randomFood = (FoodTypes) foodTypes.GetValue(_rand.Next(foodTypes.Length));
-            var pos = freeSegments[_rand.Next(freeSegments.Count)];
+            return freeSegments[_rand.Next(freeSegments.Count)];
+        }
 
-            switch (randomFood)
+        private void AddFood(FoodTypes type, Point position)
+        {
+            if (position.X < 0 || position.Y < 0 || position.X >= board.Width || position.Y >= board.Height)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            switch (type)
             {
                 case FoodTypes.Standard:
-                    foods.Add(new StandardFood(pos));
+                    foods.Add(new StandardFood(position));
                     break;
                 case FoodTypes.Valuable:
-                    foods.Add(new ValuableFood(pos));
+                    foods.Add(new ValuableFood(position));
                     break;
                 case FoodTypes.Diet:
-                    foods.Add(new DietFood(pos));
+                    foods.Add(new DietFood(position));
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
