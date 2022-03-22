@@ -14,12 +14,34 @@ namespace ProjectSnake
         private Timer _timer = new Timer();
         private ScoreLabel[] _scoreLabels;
 
+        private Button _startGameButton = new Button();
+
         public MainForm(int width = 800)
         {
             InitializeComponent();
             ClientSize = new Size(width, (int)(width * aspectRatio));
             BackColor = Gruvbox.Black;
             DoubleBuffered = true;
+
+            _startGameButton.Text = "Start Game";
+            _startGameButton.Location = new Point(ClientSize.Width / 2 - _startGameButton.Width / 2,
+                ClientSize.Height / 2 - _startGameButton.Height / 2);
+            _startGameButton.ForeColor = Color.White;
+            _startGameButton.BackColor = Color.DimGray;
+            _startGameButton.FlatStyle = FlatStyle.Flat;
+            _startGameButton.FlatAppearance.BorderSize = 0;
+            _startGameButton.Click += StartGameButtonOnClick;
+
+            Controls.Add(_startGameButton);
+        }
+
+        private void StartGameButtonOnClick(object sender, EventArgs e)
+        {
+            _startGameButton.Visible = false;
+
+            // När man trycker på knappen så tappar MainForm fokus
+            // så för att registrera tangenttryck måste vi ta tillbaka fokus.
+            Focus();
 
             _engine = new Engine(2);
             _renderer = new WinFormsRenderer(_engine.Board);
