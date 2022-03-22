@@ -66,7 +66,6 @@ namespace ProjectSnake
             playerCountControls.Controls.Add(_playerCountComboBox);
             playerCountControls.Anchor = AnchorStyles.None;
             playerCountControls.AutoSize = true;
-            playerCountControls.BackColor = Gruvbox.DarkGray;
 
             _mainMenuControls.FlowDirection = FlowDirection.TopDown;
             _mainMenuControls.Controls.Add(playerCountControls);
@@ -75,7 +74,6 @@ namespace ProjectSnake
             _mainMenuControls.AutoSize = true;
             _mainMenuControls.Location = new Point(ClientSize.Width / 2 - _mainMenuControls.Width / 2,
                 ClientSize.Height / 2 - _mainMenuControls.Height / 2);
-            _mainMenuControls.BackColor = Gruvbox.DarkGray;
 
             Controls.Add(_mainMenuControls);
         }
