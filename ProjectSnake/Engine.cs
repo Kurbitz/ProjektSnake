@@ -8,6 +8,8 @@ namespace ProjectSnake
 {
     internal class Engine
     {
+        public const int MaxPlayerCount = 2;
+
         private List<Food> foods = new List<Food>();
         public Player[] Players;
         public Board Board;
@@ -15,6 +17,11 @@ namespace ProjectSnake
 
         public Engine(int playerCount)
         {
+            // Det måste finnas tillräckligt många blueprints för att kunna stödja alla möjliga spelarantal.
+            // Om man vill stödja fler spelare får man lägga till flera blueprints.
+            Debug.Assert(Player.SnakeBlueprints.Length >= MaxPlayerCount);
+            Debug.Assert(Controls.controlsBluprints.Length >= MaxPlayerCount);
+
             Board.Width = 40;
             Board.Height = 30;
 
