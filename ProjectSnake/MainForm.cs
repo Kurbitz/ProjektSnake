@@ -57,6 +57,8 @@ namespace ProjectSnake
             var playerCountLabel = new Label();
             playerCountLabel.Text = "Player Count: ";
             playerCountLabel.ForeColor = Gruvbox.White;
+            playerCountLabel.Anchor = AnchorStyles.None;
+            playerCountLabel.AutoSize = true;
 
             FlowLayoutPanel playerCountControls = new FlowLayoutPanel();
             playerCountControls.FlowDirection = FlowDirection.LeftToRight;
