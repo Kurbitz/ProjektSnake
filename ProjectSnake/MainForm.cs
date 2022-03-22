@@ -28,9 +28,15 @@ namespace ProjectSnake
 
             Text = "Snake 🐍";
 
+            var titleLabel = new Label();
+            titleLabel.Text = "Snake";
+            titleLabel.Anchor = AnchorStyles.None;
+            titleLabel.AutoSize = true;
+            titleLabel.ForeColor = Gruvbox.White;
+            titleLabel.Font = new Font(this.Font.FontFamily, 40);
+            titleLabel.ForeColor = Gruvbox.Green;
+
             _startGameButton.Text = "Start Game";
-            _startGameButton.Location = new Point(ClientSize.Width / 2 - _startGameButton.Width / 2,
-                ClientSize.Height / 2 - _startGameButton.Height / 2);
             _startGameButton.ForeColor = Gruvbox.White;
             _startGameButton.BackColor = Gruvbox.DarkGray;
             _startGameButton.Anchor = AnchorStyles.None;
@@ -50,8 +56,6 @@ namespace ProjectSnake
             _playerCountComboBox.SelectedIndex = 0;
             _playerCountComboBox.AutoSize = true;
             _playerCountComboBox.Anchor = AnchorStyles.None;
-            _playerCountComboBox.Location = new Point(ClientSize.Width / 2 - _playerCountComboBox.Width / 2,
-                _startGameButton.Top - _playerCountComboBox.Height);
             _playerCountComboBox.FlatStyle = FlatStyle.Flat;
             _playerCountComboBox.BackColor = Gruvbox.DarkGray;
             _playerCountComboBox.ForeColor = Gruvbox.White;
@@ -61,6 +65,8 @@ namespace ProjectSnake
             var playerCountLabel = new Label();
             playerCountLabel.Text = "Player Count: ";
             playerCountLabel.ForeColor = Gruvbox.White;
+            playerCountLabel.Anchor = AnchorStyles.None;
+            playerCountLabel.AutoSize = true;
 
             FlowLayoutPanel playerCountControls = new FlowLayoutPanel();
             playerCountControls.FlowDirection = FlowDirection.LeftToRight;
@@ -68,18 +74,18 @@ namespace ProjectSnake
             playerCountControls.Controls.Add(_playerCountComboBox);
             playerCountControls.Anchor = AnchorStyles.None;
             playerCountControls.AutoSize = true;
-            playerCountControls.BackColor = Gruvbox.DarkGray;
 
             _mainMenuControls.FlowDirection = FlowDirection.TopDown;
-            _mainMenuControls.Controls.Add(playerCountControls);
-            _mainMenuControls.Controls.Add(_startGameButton);
             _mainMenuControls.Anchor = AnchorStyles.None;
             _mainMenuControls.AutoSize = true;
-            _mainMenuControls.Location = new Point(ClientSize.Width / 2 - _mainMenuControls.Width / 2,
-                ClientSize.Height / 2 - _mainMenuControls.Height / 2);
-            _mainMenuControls.BackColor = Gruvbox.DarkGray;
+            _mainMenuControls.Controls.Add(titleLabel);
+            _mainMenuControls.Controls.Add(playerCountControls);
+            _mainMenuControls.Controls.Add(_startGameButton);
 
             Controls.Add(_mainMenuControls);
+
+            _mainMenuControls.Location = new Point((ClientSize.Width / 2) - (_mainMenuControls.Width / 2),
+                (ClientSize.Height / 2) - (_mainMenuControls.Height / 2));
         }
 
         private void StartGameButtonOnClick(object sender, EventArgs e)
