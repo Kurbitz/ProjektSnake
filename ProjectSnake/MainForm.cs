@@ -14,6 +14,10 @@ namespace ProjectSnake
         private Timer _timer = new Timer();
         private ScoreLabel[] _scoreLabels;
 
+        private Button _startGameButton = new Button();
+        private ComboBox _playerCountComboBox = new ComboBox();
+        private FlowLayoutPanel _mainMenuControls = new FlowLayoutPanel();
+
         public MainForm(int width = 800)
         {
             InitializeComponent();
@@ -21,7 +25,71 @@ namespace ProjectSnake
             BackColor = Gruvbox.Black;
             DoubleBuffered = true;
 
-            _engine = new Engine(2);
+            Text = "Snake";
+
+            _startGameButton.Text = "Start Game";
+            _startGameButton.Location = new Point(ClientSize.Width / 2 - _startGameButton.Width / 2,
+                ClientSize.Height / 2 - _startGameButton.Height / 2);
+            _startGameButton.ForeColor = Gruvbox.White;
+            _startGameButton.BackColor = Gruvbox.DarkGray;
+            _startGameButton.Anchor = AnchorStyles.None;
+            _startGameButton.AutoSize = true;
+            _startGameButton.FlatStyle = FlatStyle.Flat;
+            _startGameButton.FlatAppearance.BorderSize = 0;
+            _startGameButton.Click += StartGameButtonOnClick;
+
+            var playerCountStrings = new Object[Engine.MaxPlayerCount];
+            for (var i = 0; i < playerCountStrings.Length; ++i)
+            {
+                playerCountStrings[i] = i + 1;
+            }
+
+            _playerCountComboBox.Items.AddRange(playerCountStrings);
+            _playerCountComboBox.MaxDropDownItems = _playerCountComboBox.Items.Count;
+            _playerCountComboBox.SelectedIndex = 0;
+            _playerCountComboBox.AutoSize = true;
+            _playerCountComboBox.Anchor = AnchorStyles.None;
+            _playerCountComboBox.Location = new Point(ClientSize.Width / 2 - _playerCountComboBox.Width / 2,
+                _startGameButton.Top - _playerCountComboBox.Height);
+            _playerCountComboBox.FlatStyle = FlatStyle.Flat;
+            _playerCountComboBox.BackColor = Gruvbox.DarkGray;
+            _playerCountComboBox.ForeColor = Gruvbox.White;
+            // Tillåt inte att skriva egna värden.
+            _playerCountComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+
+            var _playerCountLabel = new Label();
+            _playerCountLabel.Text = "Player Count: ";
+            _playerCountLabel.ForeColor = Gruvbox.White;
+
+            FlowLayoutPanel playerCountControls = new FlowLayoutPanel();
+            playerCountControls.FlowDirection = FlowDirection.LeftToRight;
+            playerCountControls.Controls.Add(_playerCountLabel);
+            playerCountControls.Controls.Add(_playerCountComboBox);
+            playerCountControls.Anchor = AnchorStyles.None;
+            playerCountControls.AutoSize = true;
+            playerCountControls.BackColor = Gruvbox.DarkGray;
+
+            _mainMenuControls.FlowDirection = FlowDirection.TopDown;
+            _mainMenuControls.Controls.Add(playerCountControls);
+            _mainMenuControls.Controls.Add(_startGameButton);
+            _mainMenuControls.Anchor = AnchorStyles.None;
+            _mainMenuControls.AutoSize = true;
+            _mainMenuControls.Location = new Point(ClientSize.Width / 2 - _mainMenuControls.Width / 2,
+                ClientSize.Height / 2 - _mainMenuControls.Height / 2);
+            _mainMenuControls.BackColor = Gruvbox.DarkGray;
+
+            Controls.Add(_mainMenuControls);
+        }
+
+        private void StartGameButtonOnClick(object sender, EventArgs e)
+        {
+            _mainMenuControls.Visible = false;
+
+            // När man trycker på knappen så tappar MainForm fokus
+            // så för att registrera tangenttryck måste vi ta tillbaka fokus.
+            Focus();
+
+            _engine = new Engine(_playerCountComboBox.SelectedIndex + 1);
             _renderer = new WinFormsRenderer(_engine.Board);
 
             _scoreLabels = InitializeScoreLabels(_engine.Players);
@@ -94,6 +162,7 @@ namespace ProjectSnake
 
             // ClientSize är storleken på fönstrets faktiska innehåll, utan title bar och liknande.
             ClientSize = new Size(ClientSize.Width, (int)(ClientSize.Width * aspectRatio));
+            Refresh();
         }
     }
 }
