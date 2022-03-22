@@ -19,6 +19,8 @@ namespace ProjectSnake
         private readonly ComboBox _playerCountComboBox = new ComboBox();
         private readonly FlowLayoutPanel _mainMenuControls = new FlowLayoutPanel();
 
+        private readonly Label _pauseLabel = new Label();
+
         public MainForm(int width = 800)
         {
             InitializeComponent();
@@ -35,6 +37,18 @@ namespace ProjectSnake
             titleLabel.ForeColor = Gruvbox.White;
             titleLabel.Font = new Font(this.Font.FontFamily, 40);
             titleLabel.ForeColor = Gruvbox.Green;
+
+            _pauseLabel.Visible = false;
+            _pauseLabel.Text = "Paused";
+            _pauseLabel.TextAlign = ContentAlignment.MiddleCenter;
+            _pauseLabel.Font = new Font(this.Font.FontFamily, 20);
+            _pauseLabel.Anchor = AnchorStyles.None;
+            _pauseLabel.AutoSize = true;
+            _pauseLabel.ForeColor = Gruvbox.White;
+            _pauseLabel.BackColor = Gruvbox.DarkGray;
+            Controls.Add(_pauseLabel);
+            _pauseLabel.Location = new Point(ClientSize.Width / 2 - _pauseLabel.Width / 2,
+                ClientSize.Height / 2 - _pauseLabel.Height / 2);
 
             _startGameButton.Text = "Start Game";
             _startGameButton.ForeColor = Gruvbox.White;
@@ -119,6 +133,7 @@ namespace ProjectSnake
             if (key == Keys.Escape)
             {
                 _engine.IsPaused = !_engine.IsPaused;
+                _pauseLabel.Visible = _engine.IsPaused;
                 return;
             }
 
