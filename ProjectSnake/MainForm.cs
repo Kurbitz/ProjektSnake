@@ -25,6 +25,8 @@ namespace ProjectSnake
             BackColor = Gruvbox.Black;
             DoubleBuffered = true;
 
+            Text = "Snake";
+
             _startGameButton.Text = "Start Game";
             _startGameButton.Location = new Point(ClientSize.Width / 2 - _startGameButton.Width / 2,
                 ClientSize.Height / 2 - _startGameButton.Height / 2);
