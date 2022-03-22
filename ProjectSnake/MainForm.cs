@@ -33,6 +33,7 @@ namespace ProjectSnake
             var titleLabel = new Label();
             titleLabel.Text = "Snake";
             titleLabel.Anchor = AnchorStyles.None;
+            titleLabel.TextAlign = ContentAlignment.MiddleCenter;
             titleLabel.AutoSize = true;
             titleLabel.ForeColor = Gruvbox.White;
             titleLabel.Font = new Font(this.Font.FontFamily, 40);
@@ -53,6 +54,7 @@ namespace ProjectSnake
             _startGameButton.Text = "Start Game";
             _startGameButton.ForeColor = Gruvbox.White;
             _startGameButton.BackColor = Gruvbox.DarkGray;
+            _startGameButton.TextAlign = ContentAlignment.MiddleCenter;
             _startGameButton.Anchor = AnchorStyles.None;
             _startGameButton.AutoSize = true;
             _startGameButton.FlatStyle = FlatStyle.Flat;
@@ -79,6 +81,7 @@ namespace ProjectSnake
             var playerCountLabel = new Label();
             playerCountLabel.Text = "Player Count: ";
             playerCountLabel.ForeColor = Gruvbox.White;
+            playerCountLabel.TextAlign = ContentAlignment.MiddleCenter;
             playerCountLabel.Anchor = AnchorStyles.None;
             playerCountLabel.AutoSize = true;
 
