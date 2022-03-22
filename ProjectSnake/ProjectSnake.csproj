@@ -52,6 +52,7 @@
     <Compile Include="DietFood.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="Food.cs" />
+    <Compile Include="Gruvbox.cs" />
     <Compile Include="ICollidable.cs" />
     <Compile Include="IDrawable.cs" />
     <Compile Include="IRenderer.cs" />
