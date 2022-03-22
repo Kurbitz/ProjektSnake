@@ -54,9 +54,9 @@ namespace ProjectSnake
                 {
                     continue;
                 }
+
                 player.Snake.Move((Direction)dirction);
             }
-           
         }
 
         private ScoreLabel[] InitializeScoreLabels(Player[] players)
@@ -90,14 +90,21 @@ namespace ProjectSnake
 
         private void TimerEvent(object sender, EventArgs e)
         {
+            Tick();
+
+            _main.Refresh();
+        }
+
+        public void Tick()
+        {
             foreach (var snake in Players.Select(p => p.Snake))
             {
                 snake.Step();
             }
 
             TryCollide();
+
             SpawnFood();
-            _main.Refresh();
         }
 
         private void Draw(Object obj, PaintEventArgs e)
