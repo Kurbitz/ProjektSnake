@@ -137,6 +137,7 @@ namespace ProjectSnake
 
             // ClientSize är storleken på fönstrets faktiska innehåll, utan title bar och liknande.
             ClientSize = new Size(ClientSize.Width, (int)(ClientSize.Width * aspectRatio));
+            Refresh();
         }
     }
 }
