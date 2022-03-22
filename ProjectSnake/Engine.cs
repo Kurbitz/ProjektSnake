@@ -3,76 +3,24 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Windows.Forms;
 
 namespace ProjectSnake
 {
     internal class Engine
     {
-        private MainForm _main = new MainForm();
-        private WinFormsRenderer _renderer;
-        private Timer _timer = new Timer();
         private List<Food> foods = new List<Food>();
-        private Player[] _players;
-        private Board board;
+        public Player[] Players;
+        public Board Board;
         private Random _rand = new Random();
 
-        private ScoreLabel[] _scoreLabels;
-
-        public void Run()
+        public Engine(int playerCount)
         {
-            Application.EnableVisualStyles();
-            //Application.SetCompatibleTextRenderingDefault(false);
-            board.Width = 40;
-            board.Height = 30;
+            Board.Width = 40;
+            Board.Height = 30;
 
-
-            _renderer = new WinFormsRenderer(board);
-
-            var playerCount = 2;
-            _players = InitializePlayers(playerCount);
-            _scoreLabels = InitializeScoreLabels(_players);
-
-            foreach (var label in _scoreLabels)
-            {
-                _main.Controls.Add(label);
-            }
+            Players = InitializePlayers(playerCount);
 
             AddFood(FoodTypes.Standard, GetFreePosition());
-            _main.KeyDown += MainOnKeyDown;
-            _main.Paint += Draw;
-            _timer.Tick += TimerEvent;
-            _timer.Interval = 1000 / 60;
-            _timer.Start();
-            Application.Run(_main);
-        }
-
-        private void MainOnKeyDown(object sender, KeyEventArgs e)
-        {
-            var key = e.KeyCode;
-            foreach (var player in _players)
-            {
-                var dirction = player.controls.todirection(key);
-                if (dirction == null)
-                {
-                    continue;
-                }
-                player.Snake.Move((Direction)dirction);
-            }
-           
-        }
-
-        private ScoreLabel[] InitializeScoreLabels(Player[] players)
-        {
-            var labels = new ScoreLabel[players.Length];
-            for (var i = 0; i < labels.Length; ++i)
-            {
-                var label = new ScoreLabel(players[i]);
-                label.Location = new Point(0, i * label.Height);
-                labels[i] = label;
-            }
-
-            return labels;
         }
 
         private Player[] InitializePlayers(int count)
@@ -83,7 +31,7 @@ namespace ProjectSnake
             for (var i = 0; i < players.Length; ++i)
             {
                 var (relativePosition, color) = Player.SnakeBlueprints[i];
-                var absolutePosition = new PointF(relativePosition.X * board.Width, relativePosition.Y * board.Height);
+                var absolutePosition = new PointF(relativePosition.X * Board.Width, relativePosition.Y * Board.Height);
                 players[i] = new Player(Point.Truncate(absolutePosition), color);
                 players[i].controls = Controls.controlsBluprints[i];
             }
@@ -91,37 +39,28 @@ namespace ProjectSnake
             return players;
         }
 
-        private void TimerEvent(object sender, EventArgs e)
+        public void Tick()
         {
-            foreach (var snake in _players.Select(p => p.Snake))
+            foreach (var snake in Players.Select(p => p.Snake))
             {
                 snake.Step();
             }
 
             TryCollide();
+
             SpawnFood();
-            _main.Refresh();
         }
 
-        private void Draw(Object obj, PaintEventArgs e)
+        public void Draw(IRenderer renderer)
         {
-            _renderer.Clear();
-
             var drawables = new List<IDrawable>();
             drawables.AddRange(foods);
-            drawables.AddRange(_players);
+            drawables.AddRange(Players);
 
             foreach (var drawable in drawables)
             {
-                drawable.Draw(_renderer);
+                drawable.Draw(renderer);
             }
-
-            foreach (var label in _scoreLabels)
-            {
-                _renderer.Draw(label);
-            }
-
-            _renderer.Display((Control)obj, e.Graphics);
         }
 
         // Checks each collidable for collisions and runs collision method if true
@@ -130,17 +69,17 @@ namespace ProjectSnake
             // Add all ICollidables (food and each player's snake) to the same list for easy iteration.
             var collidables = new List<ICollidable>();
             collidables.AddRange(foods);
-            collidables.AddRange(_players);
+            collidables.AddRange(Players);
 
-            if (_players.All(player => !player.Snake.IsAlive))
+            if (Players.All(player => !player.Snake.IsAlive))
             {
                 GameOver();
             }
-            
-            foreach (var player in _players)
+
+            foreach (var player in Players)
             {
                 // Om Out of Bounds
-                if (player.CheckCollision(board))
+                if (player.CheckCollision(Board))
                 {
                     player.Snake.IsAlive = false;
                 }
@@ -153,7 +92,7 @@ namespace ProjectSnake
             }
 
             foods.RemoveAll(food => !food.IsActive);
-            foreach (var snake in _players.Select(player => player.Snake))
+            foreach (var snake in Players.Select(player => player.Snake))
             {
                 if (!snake.IsAlive)
                 {
@@ -208,12 +147,12 @@ namespace ProjectSnake
         private Point GetFreePosition()
         {
             // Gör en lista med alla möjliga platser på brädet
-            var freeSegments = (from x in Enumerable.Range(0, board.Width)
-                from y in Enumerable.Range(0, board.Height)
+            var freeSegments = (from x in Enumerable.Range(0, Board.Width)
+                from y in Enumerable.Range(0, Board.Height)
                 select new Point(x, y)).ToList();
 
             // Ta bort alla upptagna positioner, där det finns ormar eller mat
-            foreach (var player in _players)
+            foreach (var player in Players)
             {
                 freeSegments.RemoveAll(p => player.Snake.CheckCollision(p));
             }
@@ -228,7 +167,7 @@ namespace ProjectSnake
 
         private void AddFood(FoodTypes type, Point position)
         {
-            if (position.X < 0 || position.Y < 0 || position.X >= board.Width || position.Y >= board.Height)
+            if (position.X < 0 || position.Y < 0 || position.X >= Board.Width || position.Y >= Board.Height)
             {
                 throw new ArgumentOutOfRangeException();
             }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 
 namespace ProjectSnake
 {
@@ -10,8 +11,10 @@ namespace ProjectSnake
         [STAThread]
         private static void Main()
         {
-            var engine = new Engine();
-            engine.Run();
+            Application.EnableVisualStyles();
+            //Application.SetCompatibleTextRenderingDefault(false);
+            var mainForm = new MainForm();
+            Application.Run(mainForm);
         }
     }
 }
