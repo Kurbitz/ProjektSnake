@@ -16,6 +16,7 @@ namespace ProjectSnake
 
         private Button _startGameButton = new Button();
         private ComboBox _playerCountComboBox = new ComboBox();
+        private FlowLayoutPanel _mainMenuControls = new FlowLayoutPanel();
 
         public MainForm(int width = 800)
         {
@@ -29,6 +30,8 @@ namespace ProjectSnake
                 ClientSize.Height / 2 - _startGameButton.Height / 2);
             _startGameButton.ForeColor = Color.White;
             _startGameButton.BackColor = Color.DimGray;
+            _startGameButton.Anchor = AnchorStyles.None;
+            _startGameButton.AutoSize = true;
             _startGameButton.FlatStyle = FlatStyle.Flat;
             _startGameButton.FlatAppearance.BorderSize = 0;
             _startGameButton.Click += StartGameButtonOnClick;
@@ -52,13 +55,32 @@ namespace ProjectSnake
             // Tillåt inte att skriva egna värden.
             _playerCountComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
 
-            Controls.Add(_startGameButton);
+            var _playerCountLabel = new Label();
+            _playerCountLabel.Text = "Player Count: ";
+
+            FlowLayoutPanel playerCountControls = new FlowLayoutPanel();
+            playerCountControls.FlowDirection = FlowDirection.LeftToRight;
+            playerCountControls.Controls.Add(_playerCountLabel);
+            playerCountControls.Controls.Add(_playerCountComboBox);
+            playerCountControls.Anchor = AnchorStyles.None;
+            playerCountControls.AutoSize = true;
+            playerCountControls.BackColor = Color.DimGray;
+
+            _mainMenuControls.FlowDirection = FlowDirection.TopDown;
+            _mainMenuControls.Controls.Add(playerCountControls);
+            _mainMenuControls.Controls.Add(_startGameButton);
+            _mainMenuControls.Anchor = AnchorStyles.None;
+            _mainMenuControls.AutoSize = true;
+            _mainMenuControls.Location = new Point(ClientSize.Width / 2 - _mainMenuControls.Width / 2,
+                ClientSize.Height / 2 - _mainMenuControls.Height / 2);
+            _mainMenuControls.BackColor = Color.DimGray;
+
+            Controls.Add(_mainMenuControls);
         }
 
         private void StartGameButtonOnClick(object sender, EventArgs e)
         {
-            _startGameButton.Visible = false;
-            _playerCountComboBox.Visible = false;
+            _mainMenuControls.Visible = false;
 
             // När man trycker på knappen så tappar MainForm fokus
             // så för att registrera tangenttryck måste vi ta tillbaka fokus.
