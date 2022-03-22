@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.Drawing;
+using System.Windows.Forms;
 
 namespace ProjectSnake
 {
@@ -10,6 +11,7 @@ namespace ProjectSnake
         {
             _player = player;
             ForeColor = player.Snake.Color;
+            BackColor = Color.Transparent;
         }
 
         public void UpdateText()
