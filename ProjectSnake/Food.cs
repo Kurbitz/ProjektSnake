@@ -10,7 +10,7 @@ namespace ProjectSnake
 
         public bool IsActive { get; private set; } = true;
 
-        public Point position
+        public Point Position
         {
             get;
             private set;
@@ -20,7 +20,7 @@ namespace ProjectSnake
 
         protected Food(Point pos, Color color, int points, int lengthFactor)
         {
-            position = pos;
+            Position = pos;
             Color = color;
             Points = points;
             LengthFactor = lengthFactor;
@@ -37,7 +37,7 @@ namespace ProjectSnake
         // Returns true if the snake's head is in the same position as the food
         public bool CheckCollision(Snake snake)
         {
-            return snake.CheckCollision(position);
+            return snake.CheckCollision(Position);
         }
     }
 }

@@ -52,7 +52,7 @@ namespace ProjectSnake
 
             foreach (var food in _food)
             {
-                var foodPixelPosition = new Point(food.position.X * tileSize.Width, food.position.Y * tileSize.Height);
+                var foodPixelPosition = new Point(food.Position.X * tileSize.Width, food.Position.Y * tileSize.Height);
                 var drawingArea = new Rectangle(foodPixelPosition, tileSize);
                 var brush = new SolidBrush(food.Color);
 

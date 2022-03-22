@@ -166,7 +166,7 @@ namespace ProjectSnake
 
             foreach (var food in _foods)
             {
-                freeSegments.RemoveAll(p => p == food.position);
+                freeSegments.RemoveAll(p => p == food.Position);
             }
 
             return freeSegments[_rand.Next(freeSegments.Count)];
