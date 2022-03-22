@@ -72,10 +72,11 @@ namespace ProjectSnake
             _mainMenuControls.Controls.Add(_startGameButton);
             _mainMenuControls.Anchor = AnchorStyles.None;
             _mainMenuControls.AutoSize = true;
-            _mainMenuControls.Location = new Point(ClientSize.Width / 2 - _mainMenuControls.Width / 2,
-                ClientSize.Height / 2 - _mainMenuControls.Height / 2);
 
             Controls.Add(_mainMenuControls);
+
+            _mainMenuControls.Location = new Point((ClientSize.Width / 2) - (_mainMenuControls.Width / 2),
+                (ClientSize.Height / 2) - (_mainMenuControls.Height / 2));
         }
 
         private void StartGameButtonOnClick(object sender, EventArgs e)
