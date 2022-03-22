@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Algorithms.cs" />
     <Compile Include="Board.cs" />
+    <Compile Include="SnakeColorScheme.cs" />
     <Compile Include="Controls.cs" />
     <Compile Include="DietFood.cs" />
     <Compile Include="Engine.cs" />
