@@ -30,8 +30,8 @@ namespace ProjectSnake
             _startGameButton.Text = "Start Game";
             _startGameButton.Location = new Point(ClientSize.Width / 2 - _startGameButton.Width / 2,
                 ClientSize.Height / 2 - _startGameButton.Height / 2);
-            _startGameButton.ForeColor = Color.White;
-            _startGameButton.BackColor = Color.DimGray;
+            _startGameButton.ForeColor = Gruvbox.White;
+            _startGameButton.BackColor = Gruvbox.DarkGray;
             _startGameButton.Anchor = AnchorStyles.None;
             _startGameButton.AutoSize = true;
             _startGameButton.FlatStyle = FlatStyle.Flat;
@@ -52,13 +52,14 @@ namespace ProjectSnake
             _playerCountComboBox.Location = new Point(ClientSize.Width / 2 - _playerCountComboBox.Width / 2,
                 _startGameButton.Top - _playerCountComboBox.Height);
             _playerCountComboBox.FlatStyle = FlatStyle.Flat;
-            _playerCountComboBox.BackColor = Color.DimGray;
-            _playerCountComboBox.ForeColor = Color.White;
+            _playerCountComboBox.BackColor = Gruvbox.DarkGray;
+            _playerCountComboBox.ForeColor = Gruvbox.White;
             // Tillåt inte att skriva egna värden.
             _playerCountComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
 
             var _playerCountLabel = new Label();
             _playerCountLabel.Text = "Player Count: ";
+            _playerCountLabel.ForeColor = Gruvbox.White;
 
             FlowLayoutPanel playerCountControls = new FlowLayoutPanel();
             playerCountControls.FlowDirection = FlowDirection.LeftToRight;
@@ -66,7 +67,7 @@ namespace ProjectSnake
             playerCountControls.Controls.Add(_playerCountComboBox);
             playerCountControls.Anchor = AnchorStyles.None;
             playerCountControls.AutoSize = true;
-            playerCountControls.BackColor = Color.DimGray;
+            playerCountControls.BackColor = Gruvbox.DarkGray;
 
             _mainMenuControls.FlowDirection = FlowDirection.TopDown;
             _mainMenuControls.Controls.Add(playerCountControls);
@@ -75,7 +76,7 @@ namespace ProjectSnake
             _mainMenuControls.AutoSize = true;
             _mainMenuControls.Location = new Point(ClientSize.Width / 2 - _mainMenuControls.Width / 2,
                 ClientSize.Height / 2 - _mainMenuControls.Height / 2);
-            _mainMenuControls.BackColor = Color.DimGray;
+            _mainMenuControls.BackColor = Gruvbox.DarkGray;
 
             Controls.Add(_mainMenuControls);
         }
