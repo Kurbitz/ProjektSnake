@@ -178,7 +178,45 @@ namespace ProjectSnake
 
         private void GameOverDisplay()
         {
-            throw new NotImplementedException();
+            // FlowOutPanel som allt kommer läggas in i
+            FlowLayoutPanel gameOverPanel = new FlowLayoutPanel();
+            gameOverPanel.FlowDirection = FlowDirection.TopDown;
+            gameOverPanel.Anchor = AnchorStyles.None;
+            gameOverPanel.AutoSize = true;
+            gameOverPanel.BackColor = Gruvbox.DarkGray;
+            gameOverPanel.Location = new Point(ClientSize.Width / 2 - gameOverPanel.Width / 2,
+                ClientSize.Height / 2 - gameOverPanel.Height / 2);
+
+            // Text som säger att spelet är över
+            Label gameOverLabel = new Label();
+            gameOverLabel.Text = "Game over!";
+            gameOverLabel.ForeColor = Gruvbox.White;
+            gameOverLabel.Font = new Font(this.Font.FontFamily, 24);
+            gameOverLabel.Size = new Size(200, 50);
+            gameOverLabel.TextAlign = ContentAlignment.MiddleCenter;
+            gameOverPanel.Controls.Add(gameOverLabel);
+
+
+            // Lägg till spelarnas poäng som en ny Label. I ordning från högst till lägst poäng
+            var sortedPlayers = _engine.Players.OrderByDescending(p => p.Score).ToList();
+            for (var i = 0; i < sortedPlayers.Count; i++)
+            {
+                var player = sortedPlayers[i];
+                Label playerScore = new Label();
+
+                playerScore.TextAlign = ContentAlignment.MiddleCenter;
+                playerScore.Dock = DockStyle.Fill;
+                playerScore.ForeColor = Gruvbox.White;
+                playerScore.Font = new Font(this.Font.FontFamily, 14);
+
+                // Ändra bakgrunden till samma färg som spelarens orm
+                playerScore.BackColor = player.Snake.ColorScheme.Head;
+                playerScore.Text = $"{player.Score}";
+
+                gameOverPanel.Controls.Add(playerScore);
+            }
+
+            Controls.Add(gameOverPanel);
         }
     }
 }
