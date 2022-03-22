@@ -17,7 +17,7 @@ namespace ProjectSnake
         private float _speed = InitialSpeed;
         private float _distanceTraveledSinceLastMove = 0.0f;
 
-        private List<Point> _segments = new List<Point>(1);
+        private readonly List<Point> _segments = new List<Point>(1);
         public SnakeColorScheme ColorScheme { get; }
 
         private Direction _facingDirection;

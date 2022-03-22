@@ -7,11 +7,11 @@ namespace ProjectSnake
 {
     public class WinFormsRenderer : IRenderer
     {
-        private List<Food> _food = new List<Food>();
-        private List<Player> _players = new List<Player>();
-        private List<ScoreLabel> _scoreLabels = new List<ScoreLabel>();
+        private readonly List<Food> _food = new List<Food>();
+        private readonly List<Player> _players = new List<Player>();
+        private readonly List<ScoreLabel> _scoreLabels = new List<ScoreLabel>();
 
-        private Board _board;
+        private readonly Board _board;
 
         // Renderern måste veta hur stort brädet är för att kunna skala saker rätt.
         // NOTE(Johan): Detta betyder också att om brädets storlek i framtiden ändras
