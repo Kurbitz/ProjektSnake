@@ -15,6 +15,7 @@ namespace ProjectSnake
         private ScoreLabel[] _scoreLabels;
 
         private Button _startGameButton = new Button();
+        private ComboBox _playerCountComboBox = new ComboBox();
 
         public MainForm(int width = 800)
         {
@@ -32,18 +33,38 @@ namespace ProjectSnake
             _startGameButton.FlatAppearance.BorderSize = 0;
             _startGameButton.Click += StartGameButtonOnClick;
 
+            var playerCountStrings = new Object[Engine.MaxPlayerCount];
+            for (var i = 0; i < playerCountStrings.Length; ++i)
+            {
+                playerCountStrings[i] = i + 1;
+            }
+
+            _playerCountComboBox.Items.AddRange(playerCountStrings);
+            _playerCountComboBox.MaxDropDownItems = _playerCountComboBox.Items.Count;
+            _playerCountComboBox.SelectedIndex = 0;
+            _playerCountComboBox.AutoSize = true;
+            _playerCountComboBox.Anchor = AnchorStyles.None;
+            _playerCountComboBox.Location = new Point(ClientSize.Width / 2 - _playerCountComboBox.Width / 2,
+                _startGameButton.Top - _playerCountComboBox.Height);
+            _playerCountComboBox.FlatStyle = FlatStyle.Flat;
+            _playerCountComboBox.BackColor = Color.DimGray;
+            _playerCountComboBox.ForeColor = Color.White;
+            // Tillåt inte att skriva egna värden.
+            _playerCountComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+
             Controls.Add(_startGameButton);
         }
 
         private void StartGameButtonOnClick(object sender, EventArgs e)
         {
             _startGameButton.Visible = false;
+            _playerCountComboBox.Visible = false;
 
             // När man trycker på knappen så tappar MainForm fokus
             // så för att registrera tangenttryck måste vi ta tillbaka fokus.
             Focus();
 
-            _engine = new Engine(2);
+            _engine = new Engine(_playerCountComboBox.SelectedIndex + 1);
             _renderer = new WinFormsRenderer(_engine.Board);
 
             _scoreLabels = InitializeScoreLabels(_engine.Players);
