@@ -24,6 +24,7 @@ namespace ProjectSnake
         {
             _food.Clear();
             _players.Clear();
+            _scoreLabels.Clear();
         }
 
         public void Draw(Food food)
