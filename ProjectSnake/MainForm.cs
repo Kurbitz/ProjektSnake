@@ -18,7 +18,7 @@ namespace ProjectSnake
         {
             InitializeComponent();
             ClientSize = new Size(width, (int)(width * aspectRatio));
-            BackColor = Color.FromArgb(29, 29, 29);
+            BackColor = Gruvbox.Black;
             DoubleBuffered = true;
 
             _engine = new Engine(2);

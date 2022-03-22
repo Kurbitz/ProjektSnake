@@ -18,7 +18,7 @@ namespace ProjectSnake
         private float _distanceTraveledSinceLastMove = 0.0f;
 
         private List<Point> _segments = new List<Point>(1);
-        public Color Color { get; }
+        public SnakeColorScheme ColorScheme { get; }
 
         private Direction _facingDirection;
         private Direction _lastMoveDirection;
@@ -30,11 +30,11 @@ namespace ProjectSnake
 
         public bool IsAlive { get; set; } = true;
 
-        public Snake(Point startingPosition, Color color)
+        public Snake(Point startingPosition, SnakeColorScheme colorScheme)
         {
             _segments.Add(startingPosition);
             _amountToGrow = 4;
-            Color = color;
+            ColorScheme = colorScheme;
         }
 
         // Ger tillbaka en storlek som pekar ett steg i directions riktning.

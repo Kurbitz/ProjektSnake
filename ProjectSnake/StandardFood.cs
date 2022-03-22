@@ -5,7 +5,7 @@ namespace ProjectSnake
 {
     internal class StandardFood : Food
     {
-        public StandardFood(Point pos) : base(pos, Color.FromArgb(248, 243, 214), 1, 1)
+        public StandardFood(Point pos) : base(pos, Gruvbox.White, 1, 1)
         {
         }
 
