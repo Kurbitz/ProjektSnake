@@ -36,14 +36,12 @@ namespace ProjectSnake
         {
             Direction ourDirection;
             var res = dictionary.TryGetValue(input, out ourDirection);
-            if (res == true)
+            if (res)
             {
                 return ourDirection;
             }
-            else
-            {
-                return null;
-            }
+
+            return null;
         }
     }
 }
