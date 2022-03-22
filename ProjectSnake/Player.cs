@@ -30,7 +30,10 @@ namespace ProjectSnake
         public void OnCollision(Player player)
         {
             Snake.IsAlive = false;
-            player.Score += 5;
+            if(!ReferenceEquals(this, player))
+            {
+                player.Score += 5;
+            }
         }
 
         public bool CheckCollision(Snake snake)
