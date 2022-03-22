@@ -30,6 +30,11 @@ namespace ProjectSnake
 
             Text = "Snake 🐍";
 
+            SetupUi();
+        }
+
+        private void SetupUi()
+        {
             var titleLabel = new Label();
             titleLabel.Text = "Snake";
             titleLabel.Anchor = AnchorStyles.None;
