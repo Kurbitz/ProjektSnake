@@ -116,6 +116,18 @@ namespace ProjectSnake
         private void MainOnKeyDown(object sender, KeyEventArgs e)
         {
             var key = e.KeyCode;
+            if (key == Keys.Escape)
+            {
+                _engine.IsPaused = !_engine.IsPaused;
+                return;
+            }
+
+            // Tillåt inte spelarinput när spelet är pausat.
+            if (_engine.IsPaused)
+            {
+                return;
+            }
+
             foreach (var player in _engine.Players)
             {
                 var direction = player.Controls.ToDirection(key);

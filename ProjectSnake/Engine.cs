@@ -14,6 +14,7 @@ namespace ProjectSnake
         public readonly Player[] Players;
         public Board Board;
         private readonly Random _rand = new Random();
+        public bool IsPaused = false;
         public bool GameOver { get; private set; } = false;
 
         public Engine(int playerCount)
@@ -49,6 +50,11 @@ namespace ProjectSnake
 
         public void Tick()
         {
+            if (IsPaused)
+            {
+                return;
+            }
+
             foreach (var snake in Players.Select(p => p.Snake))
             {
                 snake.Step();
