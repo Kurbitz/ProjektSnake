@@ -28,6 +28,14 @@ namespace ProjectSnake
 
             Text = "Snake 🐍";
 
+            var titleLabel = new Label();
+            titleLabel.Text = "Snake";
+            titleLabel.Anchor = AnchorStyles.None;
+            titleLabel.AutoSize = true;
+            titleLabel.ForeColor = Gruvbox.White;
+            titleLabel.Font = new Font(this.Font.FontFamily, 40);
+            titleLabel.ForeColor = Gruvbox.Green;
+
             _startGameButton.Text = "Start Game";
             _startGameButton.ForeColor = Gruvbox.White;
             _startGameButton.BackColor = Gruvbox.DarkGray;
@@ -68,10 +76,11 @@ namespace ProjectSnake
             playerCountControls.AutoSize = true;
 
             _mainMenuControls.FlowDirection = FlowDirection.TopDown;
-            _mainMenuControls.Controls.Add(playerCountControls);
-            _mainMenuControls.Controls.Add(_startGameButton);
             _mainMenuControls.Anchor = AnchorStyles.None;
             _mainMenuControls.AutoSize = true;
+            _mainMenuControls.Controls.Add(titleLabel);
+            _mainMenuControls.Controls.Add(playerCountControls);
+            _mainMenuControls.Controls.Add(_startGameButton);
 
             Controls.Add(_mainMenuControls);
 
