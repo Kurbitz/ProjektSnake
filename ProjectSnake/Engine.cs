@@ -10,10 +10,10 @@ namespace ProjectSnake
     {
         public const int MaxPlayerCount = 2;
 
-        private List<Food> _foods = new List<Food>();
-        public Player[] Players;
+        private readonly List<Food> _foods = new List<Food>();
+        public readonly Player[] Players;
         public Board Board;
-        private Random _rand = new Random();
+        private readonly Random _rand = new Random();
         public bool GameOver { get; private set; } = false;
 
         public Engine(int playerCount)
