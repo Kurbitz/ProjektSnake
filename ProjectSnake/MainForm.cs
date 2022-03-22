@@ -33,6 +33,7 @@ namespace ProjectSnake
             var titleLabel = new Label();
             titleLabel.Text = "Snake";
             titleLabel.Anchor = AnchorStyles.None;
+            titleLabel.TextAlign = ContentAlignment.MiddleCenter;
             titleLabel.AutoSize = true;
             titleLabel.ForeColor = Gruvbox.White;
             titleLabel.Font = new Font(this.Font.FontFamily, 40);
@@ -47,12 +48,12 @@ namespace ProjectSnake
             _pauseLabel.ForeColor = Gruvbox.White;
             _pauseLabel.BackColor = Gruvbox.DarkGray;
             Controls.Add(_pauseLabel);
-            _pauseLabel.Location = new Point(ClientSize.Width / 2 - _pauseLabel.Width / 2,
-                ClientSize.Height / 2 - _pauseLabel.Height / 2);
+            _pauseLabel.Location = GetCenterPointForSizeInSize(ClientSize, _pauseLabel.Size);
 
             _startGameButton.Text = "Start Game";
             _startGameButton.ForeColor = Gruvbox.White;
             _startGameButton.BackColor = Gruvbox.DarkGray;
+            _startGameButton.TextAlign = ContentAlignment.MiddleCenter;
             _startGameButton.Anchor = AnchorStyles.None;
             _startGameButton.AutoSize = true;
             _startGameButton.FlatStyle = FlatStyle.Flat;
@@ -79,6 +80,7 @@ namespace ProjectSnake
             var playerCountLabel = new Label();
             playerCountLabel.Text = "Player Count: ";
             playerCountLabel.ForeColor = Gruvbox.White;
+            playerCountLabel.TextAlign = ContentAlignment.MiddleCenter;
             playerCountLabel.Anchor = AnchorStyles.None;
             playerCountLabel.AutoSize = true;
 
@@ -98,8 +100,13 @@ namespace ProjectSnake
 
             Controls.Add(_mainMenuControls);
 
-            _mainMenuControls.Location = new Point((ClientSize.Width / 2) - (_mainMenuControls.Width / 2),
-                (ClientSize.Height / 2) - (_mainMenuControls.Height / 2));
+            _mainMenuControls.Location = GetCenterPointForSizeInSize(ClientSize, _mainMenuControls.Size);
+        }
+
+        // Ger tillbaka nordvästra hörnet för contained om den skulle centreras i container.
+        private Point GetCenterPointForSizeInSize(Size container, Size contained)
+        {
+            return new Point(container.Width / 2 - contained.Width / 2, container.Height / 2 - contained.Height / 2);
         }
 
         private void StartGameButtonOnClick(object sender, EventArgs e)
@@ -217,8 +224,7 @@ namespace ProjectSnake
             gameOverPanel.Anchor = AnchorStyles.None;
             gameOverPanel.AutoSize = true;
             gameOverPanel.BackColor = Gruvbox.DarkGray;
-            gameOverPanel.Location = new Point(ClientSize.Width / 2 - gameOverPanel.Width / 2,
-                ClientSize.Height / 2 - gameOverPanel.Height / 2);
+            gameOverPanel.Location = GetCenterPointForSizeInSize(ClientSize, gameOverPanel.Size);
 
             // Text som säger att spelet är över
             Label gameOverLabel = new Label();
