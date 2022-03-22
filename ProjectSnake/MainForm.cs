@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace ProjectSnake
@@ -150,7 +151,17 @@ namespace ProjectSnake
 
         private void TimerEvent(object sender, EventArgs e)
         {
-            _engine.Tick();
+            if (_engine.GameOver)
+            {
+                _engine.ClearBoard();
+                GameOverDisplay();
+                Refresh();
+                _timer.Stop();
+            }
+            else
+            {
+                _engine.Tick();
+            }
 
             Refresh();
         }
@@ -163,6 +174,11 @@ namespace ProjectSnake
             // ClientSize är storleken på fönstrets faktiska innehåll, utan title bar och liknande.
             ClientSize = new Size(ClientSize.Width, (int)(ClientSize.Width * aspectRatio));
             Refresh();
+        }
+
+        private void GameOverDisplay()
+        {
+            throw new NotImplementedException();
         }
     }
 }

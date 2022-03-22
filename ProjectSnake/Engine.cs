@@ -194,5 +194,7 @@ namespace ProjectSnake
                     throw new ArgumentOutOfRangeException();
             }
         }
+
+        public void ClearBoard() => foods.Clear();
     }
 }
