@@ -41,7 +41,7 @@ namespace ProjectSnake
                 var (relativePosition, color) = Player.SnakeBlueprints[i];
                 var absolutePosition = new PointF(relativePosition.X * Board.Width, relativePosition.Y * Board.Height);
                 players[i] = new Player(Point.Truncate(absolutePosition), color);
-                players[i].controls = Controls.ControlsBlueprints[i];
+                players[i].Controls = Controls.ControlsBlueprints[i];
             }
 
             return players;

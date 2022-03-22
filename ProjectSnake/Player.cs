@@ -1,6 +1,4 @@
 ﻿using System.Drawing;
-using System.Collections.Generic;
-using System.Windows.Forms;
 
 namespace ProjectSnake
 {
@@ -16,11 +14,11 @@ namespace ProjectSnake
             (new PointF(1F / 3F, 2F / 3F), new SnakeColorScheme(Gruvbox.Blue, Gruvbox.DarkBlue))
         };
 
-        public Controls controls;
+        public Controls Controls;
 
-        public Player(Point snakeStartingPos, SnakeColorScheme snakeColorSheme)
+        public Player(Point snakeStartingPos, SnakeColorScheme snakeColorScheme)
         {
-            Snake = new Snake(snakeStartingPos, snakeColorSheme);
+            Snake = new Snake(snakeStartingPos, snakeColorScheme);
         }
 
         public void OnCollision(Food food)
