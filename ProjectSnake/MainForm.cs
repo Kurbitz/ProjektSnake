@@ -12,12 +12,12 @@ namespace ProjectSnake
         private Engine _engine;
         private WinFormsRenderer _renderer;
 
-        private Timer _timer = new Timer();
+        private readonly Timer _timer = new Timer();
         private ScoreLabel[] _scoreLabels;
 
-        private Button _startGameButton = new Button();
-        private ComboBox _playerCountComboBox = new ComboBox();
-        private FlowLayoutPanel _mainMenuControls = new FlowLayoutPanel();
+        private readonly Button _startGameButton = new Button();
+        private readonly ComboBox _playerCountComboBox = new ComboBox();
+        private readonly FlowLayoutPanel _mainMenuControls = new FlowLayoutPanel();
 
         public MainForm(int width = 800)
         {
