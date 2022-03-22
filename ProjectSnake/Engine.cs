@@ -16,7 +16,7 @@ namespace ProjectSnake
         public Board Board;
         private Random _rand = new Random();
 
-        private ScoreLabel[] _scoreLabels;
+        public ScoreLabel[] _scoreLabels;
 
         public void Run(MainForm mainForm)
         {
@@ -37,7 +37,6 @@ namespace ProjectSnake
 
             AddFood(FoodTypes.Standard, GetFreePosition());
             _main.KeyDown += MainOnKeyDown;
-            _main.Paint += Draw;
         }
 
         private void MainOnKeyDown(object sender, KeyEventArgs e)
@@ -94,20 +93,6 @@ namespace ProjectSnake
             TryCollide();
 
             SpawnFood();
-        }
-
-        private void Draw(Object obj, PaintEventArgs e)
-        {
-            Renderer.Clear();
-
-            Draw(Renderer);
-
-            foreach (var label in _scoreLabels)
-            {
-                Renderer.Draw(label);
-            }
-
-            Renderer.Display((Control)obj, e.Graphics);
         }
 
         public void Draw(IRenderer renderer)

@@ -24,9 +24,24 @@ namespace ProjectSnake
             _engine.Run(this);
             _renderer = _engine.Renderer;
 
+            Paint += Draw;
             _timer.Tick += TimerEvent;
             _timer.Interval = 1000 / 60;
             _timer.Start();
+        }
+
+        private void Draw(Object obj, PaintEventArgs e)
+        {
+            _renderer.Clear();
+
+            _engine.Draw(_renderer);
+
+            foreach (var label in _engine._scoreLabels)
+            {
+                _renderer.Draw(label);
+            }
+
+            _renderer.Display((Control)obj, e.Graphics);
         }
 
         private void TimerEvent(object sender, EventArgs e)
