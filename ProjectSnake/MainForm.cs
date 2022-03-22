@@ -58,13 +58,13 @@ namespace ProjectSnake
             // Tillåt inte att skriva egna värden.
             _playerCountComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
 
-            var _playerCountLabel = new Label();
-            _playerCountLabel.Text = "Player Count: ";
-            _playerCountLabel.ForeColor = Gruvbox.White;
+            var playerCountLabel = new Label();
+            playerCountLabel.Text = "Player Count: ";
+            playerCountLabel.ForeColor = Gruvbox.White;
 
             FlowLayoutPanel playerCountControls = new FlowLayoutPanel();
             playerCountControls.FlowDirection = FlowDirection.LeftToRight;
-            playerCountControls.Controls.Add(_playerCountLabel);
+            playerCountControls.Controls.Add(playerCountLabel);
             playerCountControls.Controls.Add(_playerCountComboBox);
             playerCountControls.Anchor = AnchorStyles.None;
             playerCountControls.AutoSize = true;
