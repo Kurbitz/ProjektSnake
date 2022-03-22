@@ -12,6 +12,7 @@ namespace ProjectSnake
         private WinFormsRenderer _renderer;
 
         private Timer _timer = new Timer();
+        private ScoreLabel[] _scoreLabels;
 
         public MainForm(int width = 800)
         {
@@ -23,11 +24,30 @@ namespace ProjectSnake
             _engine = new Engine();
             _engine.Run(this);
             _renderer = _engine.Renderer;
+            _scoreLabels = InitializeScoreLabels(_engine.Players);
+
+            foreach (var label in _scoreLabels)
+            {
+                Controls.Add(label);
+            }
 
             Paint += Draw;
             _timer.Tick += TimerEvent;
             _timer.Interval = 1000 / 60;
             _timer.Start();
+        }
+
+        private ScoreLabel[] InitializeScoreLabels(Player[] players)
+        {
+            var labels = new ScoreLabel[players.Length];
+            for (var i = 0; i < labels.Length; ++i)
+            {
+                var label = new ScoreLabel(players[i]);
+                label.Location = new Point(0, i * label.Height);
+                labels[i] = label;
+            }
+
+            return labels;
         }
 
         private void Draw(Object obj, PaintEventArgs e)
@@ -36,7 +56,7 @@ namespace ProjectSnake
 
             _engine.Draw(_renderer);
 
-            foreach (var label in _engine._scoreLabels)
+            foreach (var label in _scoreLabels)
             {
                 _renderer.Draw(label);
             }

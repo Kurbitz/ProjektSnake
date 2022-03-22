@@ -16,8 +16,6 @@ namespace ProjectSnake
         public Board Board;
         private Random _rand = new Random();
 
-        public ScoreLabel[] _scoreLabels;
-
         public void Run(MainForm mainForm)
         {
             _main = mainForm;
@@ -28,12 +26,6 @@ namespace ProjectSnake
 
             var playerCount = 2;
             Players = InitializePlayers(playerCount);
-            _scoreLabels = InitializeScoreLabels(Players);
-
-            foreach (var label in _scoreLabels)
-            {
-                _main.Controls.Add(label);
-            }
 
             AddFood(FoodTypes.Standard, GetFreePosition());
             _main.KeyDown += MainOnKeyDown;
@@ -52,19 +44,6 @@ namespace ProjectSnake
 
                 player.Snake.Move((Direction)dirction);
             }
-        }
-
-        private ScoreLabel[] InitializeScoreLabels(Player[] players)
-        {
-            var labels = new ScoreLabel[players.Length];
-            for (var i = 0; i < labels.Length; ++i)
-            {
-                var label = new ScoreLabel(players[i]);
-                label.Location = new Point(0, i * label.Height);
-                labels[i] = label;
-            }
-
-            return labels;
         }
 
         private Player[] InitializePlayers(int count)
