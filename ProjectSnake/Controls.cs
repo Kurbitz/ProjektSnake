@@ -1,75 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections;
+﻿using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace ProjectSnake
 {
     public class Controls
     {
-       static Dictionary<Keys , Direction> player1 = new Dictionary<Keys, Direction>() {
-            { Keys.Left, Direction.Left } ,
-            { Keys.Right, Direction.Right },
-            { Keys.Up, Direction.Up },
-            { Keys.Down, Direction.Down }
-        };
-        static Dictionary<Keys, Direction> player2 = new Dictionary<Keys, Direction>() {
-            { Keys.A, Direction.Left } ,
-            { Keys.D, Direction.Right },
-            { Keys.W, Direction.Up },
-            { Keys.S, Direction.Down }
-        };
-        public static Controls[] controlsBluprints =
+        private static readonly Dictionary<Keys, Direction> Player1 = new Dictionary<Keys, Direction>()
         {
-            new Controls( player1), new Controls (player2)
-
+            {Keys.Left, Direction.Left},
+            {Keys.Right, Direction.Right},
+            {Keys.Up, Direction.Up},
+            {Keys.Down, Direction.Down}
         };
-        Dictionary<Keys, Direction> dictionary;
+
+        private static readonly Dictionary<Keys, Direction> Player2 = new Dictionary<Keys, Direction>()
+        {
+            {Keys.A, Direction.Left}, {Keys.D, Direction.Right}, {Keys.W, Direction.Up}, {Keys.S, Direction.Down}
+        };
+
+        public static readonly Controls[] ControlsBlueprints = {new Controls(Player1), new Controls(Player2)};
+
+        private readonly Dictionary<Keys, Direction> _dictionary;
+
         public Controls(Dictionary<Keys, Direction> d)
         {
-            dictionary = d;
-        
+            _dictionary = d;
         }
 
-        public Direction? todirection(Keys input)
+        public Direction? ToDirection(Keys input)
         {
             Direction ourDirection;
-            var res = dictionary.TryGetValue(input, out ourDirection);
-            if( res == true)
+            var res = _dictionary.TryGetValue(input, out ourDirection);
+            if (res)
             {
                 return ourDirection;
-
-            } 
-            else
-            {
-                return null;
-
             }
+
+            return null;
         }
-
-        
-        
-        // Direction currentDirections = Direction.Right;
-         
-       
-          
-         
-         
-         
-      
-        
-            
-
-        
-        
-        
-        
-        
-      
     }
- 
-
 }

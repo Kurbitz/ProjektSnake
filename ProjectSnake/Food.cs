@@ -5,12 +5,12 @@ namespace ProjectSnake
     public abstract class Food : ICollidable, IDrawable
     {
         public int Points { get; }
-        
+
         public int LengthFactor { get; }
 
         public bool IsActive { get; private set; } = true;
-        
-        public Point position
+
+        public Point Position
         {
             get;
             private set;
@@ -18,9 +18,9 @@ namespace ProjectSnake
 
         public Color Color { get; }
 
-        public Food(Point pos, Color color, int points, int lengthFactor)
+        protected Food(Point pos, Color color, int points, int lengthFactor)
         {
-            position = pos;
+            Position = pos;
             Color = color;
             Points = points;
             LengthFactor = lengthFactor;
@@ -37,7 +37,7 @@ namespace ProjectSnake
         // Returns true if the snake's head is in the same position as the food
         public bool CheckCollision(Snake snake)
         {
-            return snake.CheckCollision(position);
+            return snake.CheckCollision(Position);
         }
     }
 }

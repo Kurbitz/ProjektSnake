@@ -10,10 +10,10 @@ namespace ProjectSnake
     {
         public const int MaxPlayerCount = 2;
 
-        private List<Food> foods = new List<Food>();
-        public Player[] Players;
+        private readonly List<Food> _foods = new List<Food>();
+        public readonly Player[] Players;
         public Board Board;
-        private Random _rand = new Random();
+        private readonly Random _rand = new Random();
         public bool GameOver { get; private set; } = false;
 
         public Engine(int playerCount)
@@ -21,7 +21,7 @@ namespace ProjectSnake
             // Det måste finnas tillräckligt många blueprints för att kunna stödja alla möjliga spelarantal.
             // Om man vill stödja fler spelare får man lägga till flera blueprints.
             Debug.Assert(Player.SnakeBlueprints.Length >= MaxPlayerCount);
-            Debug.Assert(Controls.controlsBluprints.Length >= MaxPlayerCount);
+            Debug.Assert(Controls.ControlsBlueprints.Length >= MaxPlayerCount);
 
             Board.Width = 40;
             Board.Height = 30;
@@ -41,7 +41,7 @@ namespace ProjectSnake
                 var (relativePosition, color) = Player.SnakeBlueprints[i];
                 var absolutePosition = new PointF(relativePosition.X * Board.Width, relativePosition.Y * Board.Height);
                 players[i] = new Player(Point.Truncate(absolutePosition), color);
-                players[i].controls = Controls.controlsBluprints[i];
+                players[i].Controls = Controls.ControlsBlueprints[i];
             }
 
             return players;
@@ -62,7 +62,7 @@ namespace ProjectSnake
         public void Draw(IRenderer renderer)
         {
             var drawables = new List<IDrawable>();
-            drawables.AddRange(foods);
+            drawables.AddRange(_foods);
             drawables.AddRange(Players);
 
             foreach (var drawable in drawables)
@@ -76,7 +76,7 @@ namespace ProjectSnake
         {
             // Add all ICollidables (food and each player's snake) to the same list for easy iteration.
             var collidables = new List<ICollidable>();
-            collidables.AddRange(foods);
+            collidables.AddRange(_foods);
             collidables.AddRange(Players);
 
             if (Players.All(player => !player.Snake.IsAlive))
@@ -99,7 +99,7 @@ namespace ProjectSnake
                 }
             }
 
-            foods.RemoveAll(food => !food.IsActive);
+            _foods.RemoveAll(food => !food.IsActive);
             foreach (var snake in Players.Select(player => player.Snake))
             {
                 if (!snake.IsAlive)
@@ -109,7 +109,7 @@ namespace ProjectSnake
             }
         }
 
-        enum FoodTypes
+        private enum FoodTypes
         {
             Standard,
             Valuable,
@@ -119,10 +119,10 @@ namespace ProjectSnake
         private void SpawnFood()
         {
             // Se till att det finns minst en mat på brädet
-            if (foods.Count > 0)
+            if (_foods.Count > 0)
             {
                 // Styr spawnrate och max antal mat på brädet
-                if (foods.Count >= 3 || _rand.Next(1, 100) > 2)
+                if (_foods.Count >= 3 || _rand.Next(1, 100) > 2)
                 {
                     return;
                 }
@@ -133,7 +133,7 @@ namespace ProjectSnake
             // Se till att det inte finns för många DietFood på brädet
             if (randomFood == FoodTypes.Diet)
             {
-                if (foods.Count(f => f.GetType() == typeof(DietFood)) > 1)
+                if (_foods.Count(f => f.GetType() == typeof(DietFood)) > 1)
                 {
                     return;
                 }
@@ -164,9 +164,9 @@ namespace ProjectSnake
                 freeSegments.RemoveAll(p => player.Snake.CheckCollision(p));
             }
 
-            foreach (var food in foods)
+            foreach (var food in _foods)
             {
-                freeSegments.RemoveAll(p => p == food.position);
+                freeSegments.RemoveAll(p => p == food.Position);
             }
 
             return freeSegments[_rand.Next(freeSegments.Count)];
@@ -182,19 +182,19 @@ namespace ProjectSnake
             switch (type)
             {
                 case FoodTypes.Standard:
-                    foods.Add(new StandardFood(position));
+                    _foods.Add(new StandardFood(position));
                     break;
                 case FoodTypes.Valuable:
-                    foods.Add(new ValuableFood(position));
+                    _foods.Add(new ValuableFood(position));
                     break;
                 case FoodTypes.Diet:
-                    foods.Add(new DietFood(position));
+                    _foods.Add(new DietFood(position));
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
         }
 
-        public void ClearBoard() => foods.Clear();
+        public void ClearBoard() => _foods.Clear();
     }
 }

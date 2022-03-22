@@ -12,12 +12,12 @@ namespace ProjectSnake
         private Engine _engine;
         private WinFormsRenderer _renderer;
 
-        private Timer _timer = new Timer();
+        private readonly Timer _timer = new Timer();
         private ScoreLabel[] _scoreLabels;
 
-        private Button _startGameButton = new Button();
-        private ComboBox _playerCountComboBox = new ComboBox();
-        private FlowLayoutPanel _mainMenuControls = new FlowLayoutPanel();
+        private readonly Button _startGameButton = new Button();
+        private readonly ComboBox _playerCountComboBox = new ComboBox();
+        private readonly FlowLayoutPanel _mainMenuControls = new FlowLayoutPanel();
 
         public MainForm(int width = 800)
         {
@@ -58,13 +58,13 @@ namespace ProjectSnake
             // Tillåt inte att skriva egna värden.
             _playerCountComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
 
-            var _playerCountLabel = new Label();
-            _playerCountLabel.Text = "Player Count: ";
-            _playerCountLabel.ForeColor = Gruvbox.White;
+            var playerCountLabel = new Label();
+            playerCountLabel.Text = "Player Count: ";
+            playerCountLabel.ForeColor = Gruvbox.White;
 
             FlowLayoutPanel playerCountControls = new FlowLayoutPanel();
             playerCountControls.FlowDirection = FlowDirection.LeftToRight;
-            playerCountControls.Controls.Add(_playerCountLabel);
+            playerCountControls.Controls.Add(playerCountLabel);
             playerCountControls.Controls.Add(_playerCountComboBox);
             playerCountControls.Anchor = AnchorStyles.None;
             playerCountControls.AutoSize = true;
@@ -112,13 +112,13 @@ namespace ProjectSnake
             var key = e.KeyCode;
             foreach (var player in _engine.Players)
             {
-                var dirction = player.controls.todirection(key);
-                if (dirction == null)
+                var direction = player.Controls.ToDirection(key);
+                if (direction == null)
                 {
                     continue;
                 }
 
-                player.Snake.Move((Direction)dirction);
+                player.Snake.Move((Direction)direction);
             }
         }
 
