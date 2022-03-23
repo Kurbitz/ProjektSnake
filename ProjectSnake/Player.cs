@@ -16,9 +16,9 @@ namespace ProjectSnake
 
         public Controls Controls { get; }
 
-        public Player(Point snakeStartingPos, Direction initialDirection, SnakeColorScheme snakeColorScheme, Controls controls)
+        public Player(Snake snake, Controls controls)
         {
-            Snake = new Snake(snakeStartingPos, initialDirection, snakeColorScheme);
+            Snake = snake;
             Controls = controls;
         }
 
