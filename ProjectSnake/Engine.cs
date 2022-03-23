@@ -8,7 +8,8 @@ namespace ProjectSnake
 {
     internal class Engine
     {
-        public const int MaxPlayerCount = 2;
+        public static readonly int MaxPlayerCount =
+            Math.Min(Player.SnakeBlueprints.Length, Controls.ControlsBlueprints.Length);
 
         private readonly List<Food> _foods = new List<Food>();
         public readonly Player[] Players;
@@ -19,10 +20,16 @@ namespace ProjectSnake
 
         public Engine(int playerCount)
         {
-            // Det måste finnas tillräckligt många blueprints för att kunna stödja alla möjliga spelarantal.
-            // Om man vill stödja fler spelare får man lägga till flera blueprints.
-            Debug.Assert(Player.SnakeBlueprints.Length >= MaxPlayerCount);
-            Debug.Assert(Controls.ControlsBlueprints.Length >= MaxPlayerCount);
+            if (playerCount <= 0)
+            {
+                throw new ArgumentException("Engine måste initieras med minst en spelare.");
+            }
+
+            if (playerCount > MaxPlayerCount)
+            {
+                throw new ArgumentException("Det finns för få blueprints för att stödja det önskade antalet spelare.",
+                    nameof(playerCount));
+            }
 
             Board.Width = 40;
             Board.Height = 30;
