@@ -8,7 +8,8 @@ namespace ProjectSnake
 {
     internal class Engine
     {
-        public const int MaxPlayerCount = 2;
+        public static readonly int MaxPlayerCount =
+            Math.Min(Player.SnakeBlueprints.Length, Controls.ControlsBlueprints.Length);
 
         private readonly List<Food> _foods = new List<Food>();
         public readonly Player[] Players;
