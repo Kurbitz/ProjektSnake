@@ -14,11 +14,12 @@ namespace ProjectSnake
             (new PointF(1F / 3F, 2F / 3F), Direction.Left ,new SnakeColorScheme(Gruvbox.Blue, Gruvbox.DarkBlue))
         };
 
-        public Controls Controls;
+        public Controls Controls { get; }
 
-        public Player(Point snakeStartingPos, Direction initialDirection, SnakeColorScheme snakeColorScheme)
+        public Player(Point snakeStartingPos, Direction initialDirection, SnakeColorScheme snakeColorScheme, Controls controls)
         {
             Snake = new Snake(snakeStartingPos, initialDirection, snakeColorScheme);
+            Controls = controls;
         }
 
         public void OnCollision(Food food)
