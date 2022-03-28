@@ -126,7 +126,8 @@ namespace ProjectSnake
         {
             Standard,
             Valuable,
-            Diet
+            Diet,
+            RandomizeControls
         }
 
         private void SpawnFood()
@@ -202,6 +203,9 @@ namespace ProjectSnake
                     break;
                 case FoodTypes.Diet:
                     _foods.Add(new DietFood(position));
+                    break;
+                case FoodTypes.RandomizeControls:
+                    _foods.Add(new RandomizeControlsFood(position));
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
