@@ -31,7 +31,7 @@ namespace ProjectSnake
             renderer.Draw(this);
         }
 
-        public void OnCollision(Player player)
+        public virtual void OnCollision(Player player)
         {
             player.OnCollision(this);
             IsActive = false;
