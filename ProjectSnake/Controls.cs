@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace ProjectSnake
@@ -27,6 +29,8 @@ namespace ProjectSnake
 
         private readonly Dictionary<Keys, Direction> _dictionary;
 
+        private Random _random = new Random();
+
         public Controls(Dictionary<Keys, Direction> d)
         {
             _dictionary = d;
@@ -42,6 +46,22 @@ namespace ProjectSnake
             }
 
             return null;
+        }
+
+        public Controls RandomControls()
+        {
+            // var randomControls = _dictionary.OrderBy(r => _random.Next())
+            //     .ToDictionary(item => item.Key, item => item.Value);
+            var keys = _dictionary.Keys.OrderBy(x => _random.Next()).ToList();
+            var directions = _dictionary.Values.OrderBy(x => _random.Next()).ToList();
+            
+            var randomControls = new Dictionary<Keys, Direction>(){};
+            for (int i = 0; i < 4; i++)
+            {
+                randomControls.Add(keys[i], directions[i]);
+            }
+            
+            return new Controls(randomControls);
         }
     }
 }

@@ -157,7 +157,7 @@ namespace ProjectSnake
 
             foreach (var player in _engine.Players)
             {
-                var direction = player.Controls.ToDirection(key);
+                var direction = player.CurrentControls.ToDirection(key);
                 if (direction == null)
                 {
                     continue;

@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Windows.Forms;
 
 namespace ProjectSnake
 {
@@ -6,6 +7,8 @@ namespace ProjectSnake
     {
         public Snake Snake { get; }
         public int Score;
+        private bool _randomControls;
+        private Timer _resetRandomControlsTimer = new Timer();
 
         public static (PointF Position, Direction initialDirection, SnakeColorScheme ColorScheme)[] SnakeBlueprints { get; } =
         {
@@ -14,18 +17,50 @@ namespace ProjectSnake
             (new PointF(1F / 3F, 2F / 3F), Direction.Left ,new SnakeColorScheme(Gruvbox.Blue, Gruvbox.DarkBlue))
         };
 
-        public Controls Controls { get; }
+        public Controls StandardControls { get; }
+        
+        public Controls CurrentControls { get; private set; }
+
+        public bool RandomControls
+        {
+            get => _randomControls;
+            private set
+            {
+                if (value)
+                {
+                    CurrentControls = StandardControls.RandomControls();
+                    _resetRandomControlsTimer.Start();
+                }
+                else
+                {
+                    CurrentControls = StandardControls;
+                    _resetRandomControlsTimer.Stop();
+                }
+
+                _randomControls = value;
+            }
+        }
 
         public Player(Snake snake, Controls controls)
         {
             Snake = snake;
-            Controls = controls;
+            StandardControls = controls;
+            CurrentControls = controls;
+            _resetRandomControlsTimer.Tick += (obj, eventArgs ) => RandomControls = false;
+            _resetRandomControlsTimer.Interval = 3000;
         }
 
         public void OnCollision(Food food)
         {
             Score += food.Points;
             Snake.Grow(food.LengthFactor);
+        }
+
+        public void OnCollision(RandomizeControlsFood food)
+        {
+            Score += food.Points;
+            Snake.Grow(food.LengthFactor);
+            RandomControls = true;
         }
 
         public void OnCollision(Player player)
