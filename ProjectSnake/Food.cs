@@ -31,6 +31,7 @@ namespace ProjectSnake
             renderer.Draw(this);
         }
 
+        // EXTENDED
         public virtual void OnCollision(Player player)
         {
             player.OnCollision(this);

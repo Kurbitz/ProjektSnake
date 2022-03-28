@@ -7,7 +7,10 @@ namespace ProjectSnake
     {
         public Snake Snake { get; }
         public int Score;
+        // EXTENDED
         private bool _randomControls;
+        // EXTENDED
+        // TODO: Abstrahera bort WinForms om jag orkar
         private Timer _resetRandomControlsTimer = new Timer();
 
         public static (PointF Position, Direction initialDirection, SnakeColorScheme ColorScheme)[] SnakeBlueprints { get; } =
@@ -17,10 +20,13 @@ namespace ProjectSnake
             (new PointF(1F / 3F, 2F / 3F), Direction.Left, new SnakeColorScheme(Gruvbox.Blue, Gruvbox.DarkBlue))
         };
 
+        // EXTENDED
         public Controls StandardControls { get; }
 
+        // EXTENDED
         public Controls CurrentControls { get; private set; }
 
+        // EXTENDED
         public bool RandomControls
         {
             get => _randomControls;
@@ -44,6 +50,7 @@ namespace ProjectSnake
         public Player(Snake snake, Controls controls)
         {
             Snake = snake;
+            // EXTENDED
             StandardControls = controls;
             CurrentControls = controls;
             _resetRandomControlsTimer.Tick += (obj, eventArgs) => RandomControls = false;
@@ -56,6 +63,7 @@ namespace ProjectSnake
             Snake.Grow(food.LengthFactor);
         }
 
+        // EXTENDED
         public void OnCollision(RandomizeControlsFood food)
         {
             Score += food.Points;

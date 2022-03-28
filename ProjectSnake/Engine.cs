@@ -127,7 +127,7 @@ namespace ProjectSnake
             Standard,
             Valuable,
             Diet,
-            RandomizeControls
+            RandomizeControls // EXTENDED
         }
 
         private void SpawnFood()
@@ -204,6 +204,7 @@ namespace ProjectSnake
                 case FoodTypes.Diet:
                     _foods.Add(new DietFood(position));
                     break;
+                // EXTENDED
                 case FoodTypes.RandomizeControls:
                     _foods.Add(new RandomizeControlsFood(position));
                     break;

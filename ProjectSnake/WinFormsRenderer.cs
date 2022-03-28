@@ -59,6 +59,7 @@ namespace ProjectSnake
                 graphics.FillRectangle(brush, drawingArea);
             }
 
+            // EXTENDED
             foreach (var player in _players.Where(player => player.Snake.IsAlive))
             {
                 SolidBrush headBrush;

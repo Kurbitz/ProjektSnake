@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿// EXTENDED
+using System.Drawing;
 
 namespace ProjectSnake
 {

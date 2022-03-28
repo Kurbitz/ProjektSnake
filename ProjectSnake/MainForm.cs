@@ -18,6 +18,7 @@ namespace ProjectSnake
         private readonly Button _startGameButton = new Button();
         private readonly ComboBox _playerCountComboBox = new ComboBox();
         private readonly FlowLayoutPanel _mainMenuControls = new FlowLayoutPanel();
+        // EXTENDED
         private readonly FlowLayoutPanel _gameOverPanel = new FlowLayoutPanel();
 
         private readonly Label _pauseLabel = new Label();
@@ -123,6 +124,7 @@ namespace ProjectSnake
             // så för att registrera tangenttryck måste vi ta tillbaka fokus.
             Focus();
 
+            // EXTENDED
             InitializeGame();
 
             foreach (var label in _scoreLabels)
@@ -137,6 +139,7 @@ namespace ProjectSnake
             _frameTimer.Start();
         }
 
+        // EXTENDED
         private void InitializeGame()
         {
             _engine = new Engine(_playerCountComboBox.SelectedIndex + 1);
@@ -264,6 +267,7 @@ namespace ProjectSnake
                 _gameOverPanel.Controls.Add(playerScore);
             }
 
+            // EXTENDED
             var restartButton = new Button();
             restartButton.Text = "Restart";
             restartButton.ForeColor = Gruvbox.White;
@@ -284,6 +288,7 @@ namespace ProjectSnake
             Controls.Add(_gameOverPanel);
         }
 
+        // EXTENDED
         private void RestartButtonOnClick(object sender, EventArgs e)
         {
             _gameOverPanel.Visible = false;
