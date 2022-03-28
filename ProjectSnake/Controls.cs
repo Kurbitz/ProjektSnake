@@ -24,8 +24,11 @@ namespace ProjectSnake
         {
             {Keys.J, Direction.Left}, {Keys.L, Direction.Right}, {Keys.I, Direction.Up}, {Keys.K, Direction.Down}
         };
-        
-        public static readonly Controls[] ControlsBlueprints = {new Controls(Player1), new Controls(Player2), new Controls(Player3)};
+
+        public static readonly Controls[] ControlsBlueprints =
+        {
+            new Controls(Player1), new Controls(Player2), new Controls(Player3)
+        };
 
         private readonly Dictionary<Keys, Direction> _dictionary;
 
@@ -54,13 +57,13 @@ namespace ProjectSnake
             //     .ToDictionary(item => item.Key, item => item.Value);
             var keys = _dictionary.Keys.OrderBy(x => _random.Next()).ToList();
             var directions = _dictionary.Values.OrderBy(x => _random.Next()).ToList();
-            
-            var randomControls = new Dictionary<Keys, Direction>(){};
+
+            var randomControls = new Dictionary<Keys, Direction>() { };
             for (int i = 0; i < 4; i++)
             {
                 randomControls.Add(keys[i], directions[i]);
             }
-            
+
             return new Controls(randomControls);
         }
     }

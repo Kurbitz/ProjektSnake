@@ -7,6 +7,5 @@ namespace ProjectSnake
         public ValuableFood(Point pos) : base(pos, Gruvbox.Yellow, 5, 2)
         {
         }
-        
     }
 }

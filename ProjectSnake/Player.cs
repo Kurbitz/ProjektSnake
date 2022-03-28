@@ -12,13 +12,13 @@ namespace ProjectSnake
 
         public static (PointF Position, Direction initialDirection, SnakeColorScheme ColorScheme)[] SnakeBlueprints { get; } =
         {
-            (new PointF(1F / 3F, 1F / 3F), Direction.Right ,new SnakeColorScheme(Gruvbox.Red, Gruvbox.DarkRed)),
-            (new PointF(2F / 3F, 1F / 3F), Direction.Down ,new SnakeColorScheme(Gruvbox.Green, Gruvbox.DarkGreen)),
-            (new PointF(1F / 3F, 2F / 3F), Direction.Left ,new SnakeColorScheme(Gruvbox.Blue, Gruvbox.DarkBlue))
+            (new PointF(1F / 3F, 1F / 3F), Direction.Right, new SnakeColorScheme(Gruvbox.Red, Gruvbox.DarkRed)),
+            (new PointF(2F / 3F, 1F / 3F), Direction.Down, new SnakeColorScheme(Gruvbox.Green, Gruvbox.DarkGreen)),
+            (new PointF(1F / 3F, 2F / 3F), Direction.Left, new SnakeColorScheme(Gruvbox.Blue, Gruvbox.DarkBlue))
         };
 
         public Controls StandardControls { get; }
-        
+
         public Controls CurrentControls { get; private set; }
 
         public bool RandomControls
@@ -46,7 +46,7 @@ namespace ProjectSnake
             Snake = snake;
             StandardControls = controls;
             CurrentControls = controls;
-            _resetRandomControlsTimer.Tick += (obj, eventArgs ) => RandomControls = false;
+            _resetRandomControlsTimer.Tick += (obj, eventArgs) => RandomControls = false;
             _resetRandomControlsTimer.Interval = 3000;
         }
 
@@ -66,7 +66,7 @@ namespace ProjectSnake
         public void OnCollision(Player player)
         {
             Snake.IsAlive = false;
-            if(!ReferenceEquals(this, player))
+            if (!ReferenceEquals(this, player))
             {
                 player.Score += 5;
             }

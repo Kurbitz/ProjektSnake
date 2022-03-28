@@ -277,7 +277,7 @@ namespace ProjectSnake
             restartButton.Margin = new Padding(20);
             restartButton.AutoSize = true;
             restartButton.Click += RestartButtonOnClick;
-            
+
             _gameOverPanel.Controls.Add(restartButton);
             _gameOverPanel.Visible = true;
 
@@ -293,15 +293,15 @@ namespace ProjectSnake
             {
                 Controls.Remove(scoreLabel);
             }
+
             InitializeGame();
             foreach (var scoreLabel in _scoreLabels)
             {
                 Controls.Add(scoreLabel);
-            } 
+            }
+
             _frameTimer.Start();
             Focus();
-
         }
-        
     }
 }
