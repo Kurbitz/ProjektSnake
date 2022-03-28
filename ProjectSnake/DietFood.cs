@@ -8,10 +8,5 @@ namespace ProjectSnake
         public DietFood(Point pos) : base(pos, Gruvbox.Gray, 1, -1)
         {
         }
-
-        public override void Draw(IRenderer renderer)
-        {
-            renderer.Draw(this);
-        }
     }
 }

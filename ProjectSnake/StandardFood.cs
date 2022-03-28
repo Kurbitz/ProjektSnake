@@ -7,10 +7,5 @@ namespace ProjectSnake
         public StandardFood(Point pos) : base(pos, Gruvbox.White, 1, 1)
         {
         }
-
-        public override void Draw(IRenderer renderer)
-        {
-            renderer.Draw(this);
-        }
     }
 }

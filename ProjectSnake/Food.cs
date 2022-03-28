@@ -8,7 +8,7 @@ namespace ProjectSnake
 
         public int LengthFactor { get; }
 
-        public bool IsActive { get; private set; } = true;
+        public bool IsActive { get; protected set; } = true;
 
         public Point Position
         {
@@ -26,7 +26,10 @@ namespace ProjectSnake
             LengthFactor = lengthFactor;
         }
 
-        public abstract void Draw(IRenderer graphic);
+        public void Draw(IRenderer renderer)
+        {
+            renderer.Draw(this);
+        }
 
         public void OnCollision(Player player)
         {
