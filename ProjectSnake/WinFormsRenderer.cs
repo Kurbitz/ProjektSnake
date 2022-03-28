@@ -59,10 +59,20 @@ namespace ProjectSnake
                 graphics.FillRectangle(brush, drawingArea);
             }
 
-            foreach (var player in _players)
+            foreach (var player in _players.Where(player => player.Snake.IsAlive))
             {
+                SolidBrush headBrush;
+                if (player.RandomControls)
+                {
+                    headBrush = new SolidBrush(Gruvbox.Purple);
+                }
+                else
+                {
+                    headBrush = new SolidBrush(player.Snake.ColorScheme.Head);
+                }
+
                 var bodyBrush = new SolidBrush(player.Snake.ColorScheme.Body);
-                var headBrush = new SolidBrush(player.Snake.ColorScheme.Head);
+
                 foreach (var segment in player.Snake)
                 {
                     var segmentPixelPosition = new Point(segment.X * tileSize.Width, segment.Y * tileSize.Height);
@@ -70,13 +80,10 @@ namespace ProjectSnake
                     graphics.FillRectangle(bodyBrush, drawingArea);
                 }
 
-                if (player.Snake.IsAlive)
-                {
-                    var head = player.Snake.Last();
-                    var headSegmentPosition = new Point(head.X * tileSize.Width, head.Y * tileSize.Height);
-                    var faceArea = new Rectangle(headSegmentPosition, tileSize);
-                    graphics.FillRectangle(headBrush, faceArea);
-                }
+                var head = player.Snake.Last();
+                var headSegmentPosition = new Point(head.X * tileSize.Width, head.Y * tileSize.Height);
+                var faceArea = new Rectangle(headSegmentPosition, tileSize);
+                graphics.FillRectangle(headBrush, faceArea);
             }
 
             foreach (var scoreLabel in _scoreLabels)
