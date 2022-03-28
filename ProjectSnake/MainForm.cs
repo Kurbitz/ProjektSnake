@@ -18,6 +18,7 @@ namespace ProjectSnake
         private readonly Button _startGameButton = new Button();
         private readonly ComboBox _playerCountComboBox = new ComboBox();
         private readonly FlowLayoutPanel _mainMenuControls = new FlowLayoutPanel();
+        private readonly FlowLayoutPanel _gameOverPanel = new FlowLayoutPanel();
 
         private readonly Label _pauseLabel = new Label();
 
@@ -122,10 +123,7 @@ namespace ProjectSnake
             // så för att registrera tangenttryck måste vi ta tillbaka fokus.
             Focus();
 
-            _engine = new Engine(_playerCountComboBox.SelectedIndex + 1);
-            _renderer = new WinFormsRenderer(_engine.Board);
-
-            _scoreLabels = InitializeScoreLabels(_engine.Players);
+            InitializeGame();
 
             foreach (var label in _scoreLabels)
             {
@@ -137,6 +135,13 @@ namespace ProjectSnake
             _frameTimer.Tick += FrameTimerOnTick;
             _frameTimer.Interval = 1000 / 60;
             _frameTimer.Start();
+        }
+
+        private void InitializeGame()
+        {
+            _engine = new Engine(_playerCountComboBox.SelectedIndex + 1);
+            _renderer = new WinFormsRenderer(_engine.Board);
+            _scoreLabels = InitializeScoreLabels(_engine.Players);
         }
 
         private void MainFormOnKeyDown(object sender, KeyEventArgs e)
@@ -224,21 +229,20 @@ namespace ProjectSnake
         private void GameOverDisplay()
         {
             // FlowOutPanel som allt kommer läggas in i
-            FlowLayoutPanel gameOverPanel = new FlowLayoutPanel();
-            gameOverPanel.FlowDirection = FlowDirection.TopDown;
-            gameOverPanel.Anchor = AnchorStyles.None;
-            gameOverPanel.AutoSize = true;
-            gameOverPanel.BackColor = Gruvbox.DarkGray;
-            gameOverPanel.Location = GetCenterPointForSizeInSize(ClientSize, gameOverPanel.Size);
+            _gameOverPanel.FlowDirection = FlowDirection.TopDown;
+            _gameOverPanel.Anchor = AnchorStyles.None;
+            _gameOverPanel.AutoSize = true;
+            _gameOverPanel.BackColor = Gruvbox.DarkGray;
+            _gameOverPanel.Location = GetCenterPointForSizeInSize(ClientSize, _gameOverPanel.Size);
 
             // Text som säger att spelet är över
-            Label gameOverLabel = new Label();
+            var gameOverLabel = new Label();
             gameOverLabel.Text = "Game over!";
             gameOverLabel.ForeColor = Gruvbox.White;
             gameOverLabel.Font = new Font(this.Font.FontFamily, 24);
             gameOverLabel.Size = new Size(200, 50);
             gameOverLabel.TextAlign = ContentAlignment.MiddleCenter;
-            gameOverPanel.Controls.Add(gameOverLabel);
+            _gameOverPanel.Controls.Add(gameOverLabel);
 
 
             // Lägg till spelarnas poäng som en ny Label. I ordning från högst till lägst poäng
@@ -257,10 +261,47 @@ namespace ProjectSnake
                 playerScore.BackColor = player.Snake.ColorScheme.Head;
                 playerScore.Text = $"{player.Score}";
 
-                gameOverPanel.Controls.Add(playerScore);
+                _gameOverPanel.Controls.Add(playerScore);
             }
 
-            Controls.Add(gameOverPanel);
+            var restartButton = new Button();
+            restartButton.Text = "Restart";
+            restartButton.ForeColor = Gruvbox.White;
+            restartButton.BackColor = Gruvbox.Gray;
+            restartButton.Anchor = AnchorStyles.None;
+            restartButton.FlatStyle = FlatStyle.Flat;
+            restartButton.FlatAppearance.BorderSize = 0;
+            restartButton.Font = new Font(this.Font.FontFamily, 20);
+            restartButton.TextAlign = ContentAlignment.MiddleCenter;
+            //restartButton.Size = new Size(200, 50);
+            restartButton.Margin = new Padding(20);
+            restartButton.AutoSize = true;
+            restartButton.Click += RestartButtonOnClick;
+            
+            _gameOverPanel.Controls.Add(restartButton);
+            _gameOverPanel.Visible = true;
+
+            Controls.Add(_gameOverPanel);
         }
+
+        private void RestartButtonOnClick(object sender, EventArgs e)
+        {
+            _gameOverPanel.Visible = false;
+            _gameOverPanel.Controls.Clear();
+            Controls.Remove(_gameOverPanel);
+            foreach (var scoreLabel in _scoreLabels)
+            {
+                Controls.Remove(scoreLabel);
+            }
+            InitializeGame();
+            foreach (var scoreLabel in _scoreLabels)
+            {
+                Controls.Add(scoreLabel);
+            } 
+            _frameTimer.Start();
+            Focus();
+
+        }
+        
     }
 }
